@@ -17,29 +17,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{892525
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{E33703A5-5951-407D-A30A-A7D8155231D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Events.Api", "src\Modules\Events\Modules.Events.Api\Modules.Events.Api.csproj", "{D57F9E98-6D5F-400B-B0C9-859C0591686F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Events.Api", "src\Modules\Events\Modules.Events.Api\Modules.Events.Api.csproj", "{D57F9E98-6D5F-400B-B0C9-859C0591686F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Orders.Api", "src\Modules\Orders\Modules.Orders.Api\Modules.Orders.Api.csproj", "{EF613121-FF5A-426B-8DF0-3C9EBECAA26B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Orders.Api", "src\Modules\Orders\Modules.Orders.Api\Modules.Orders.Api.csproj", "{EF613121-FF5A-426B-8DF0-3C9EBECAA26B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Payments.Api", "src\Modules\Payments\Modules.Payments.Api\Modules.Payments.Api.csproj", "{7EE51BF1-BDDB-4263-BE0E-EAD8FC190F7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Payments.Api", "src\Modules\Payments\Modules.Payments.Api\Modules.Payments.Api.csproj", "{7EE51BF1-BDDB-4263-BE0E-EAD8FC190F7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Events.ModuleApi", "src\Modules\Events\Modules.Events.ModuleApi\Modules.Events.ModuleApi.csproj", "{28669A9E-00C2-4D57-875B-67CF756B24DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Events.ModuleApi", "src\Modules\Events\Modules.Events.ModuleApi\Modules.Events.ModuleApi.csproj", "{28669A9E-00C2-4D57-875B-67CF756B24DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Orders.ModuleApi", "src\Modules\Orders\Modules.Orders.ModuleApi\Modules.Orders.ModuleApi.csproj", "{FD78DA76-6988-48EB-AEBB-49679DEB98F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Orders.ModuleApi", "src\Modules\Orders\Modules.Orders.ModuleApi\Modules.Orders.ModuleApi.csproj", "{FD78DA76-6988-48EB-AEBB-49679DEB98F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Payments.ModuleApi", "src\Modules\Payments\Modules.Payments.ModuleApi\Modules.Payments.ModuleApi.csproj", "{5205C39F-C815-45F1-8B0E-9B9A92E9654C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Payments.ModuleApi", "src\Modules\Payments\Modules.Payments.ModuleApi\Modules.Payments.ModuleApi.csproj", "{5205C39F-C815-45F1-8B0E-9B9A92E9654C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Events.Core", "src\Modules\Events\Modules.Events.Core\Modules.Events.Core.csproj", "{02EE658D-527B-449D-8951-BF1059C642EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Events.Core", "src\Modules\Events\Modules.Events.Core\Modules.Events.Core.csproj", "{02EE658D-527B-449D-8951-BF1059C642EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Orders.Core", "src\Modules\Orders\Modules.Orders.Core\Modules.Orders.Core.csproj", "{AD523594-1390-4218-9E92-541B6257B26D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Orders.Core", "src\Modules\Orders\Modules.Orders.Core\Modules.Orders.Core.csproj", "{AD523594-1390-4218-9E92-541B6257B26D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Payments.Core", "src\Modules\Payments\Modules.Payments.Core\Modules.Payments.Core.csproj", "{9C843D4D-493A-4372-B20F-70446A71EEA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Payments.Core", "src\Modules\Payments\Modules.Payments.Core\Modules.Payments.Core.csproj", "{9C843D4D-493A-4372-B20F-70446A71EEA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Events.Data", "src\Modules\Events\Modules.Events.Data\Modules.Events.Data.csproj", "{C95B77ED-E9EE-495B-A28C-880C0CAA474D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Events.Data", "src\Modules\Events\Modules.Events.Data\Modules.Events.Data.csproj", "{C95B77ED-E9EE-495B-A28C-880C0CAA474D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Orders.Data", "src\Modules\Orders\Modules.Orders.Data\Modules.Orders.Data.csproj", "{DCC2BBC6-E3A5-46C4-9F8E-CE95010C1DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Orders.Data", "src\Modules\Orders\Modules.Orders.Data\Modules.Orders.Data.csproj", "{DCC2BBC6-E3A5-46C4-9F8E-CE95010C1DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Payments.Data", "src\Modules\Payments\Modules.Payments.Data\Modules.Payments.Data.csproj", "{18E19174-9774-40FB-9213-01E1EFA86EC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modules.Payments.Data", "src\Modules\Payments\Modules.Payments.Data\Modules.Payments.Data.csproj", "{18E19174-9774-40FB-9213-01E1EFA86EC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1BE3A359-8A08-4904-A6D6-E7B784122D37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ticketing.Shared.Data", "src\Shared\Ticketing.Shared.Data\Ticketing.Shared.Data.csproj", "{F319D45D-62CD-4EE2-8364-6EC779CE8B56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,10 @@ Global
 		{18E19174-9774-40FB-9213-01E1EFA86EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E19174-9774-40FB-9213-01E1EFA86EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18E19174-9774-40FB-9213-01E1EFA86EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F319D45D-62CD-4EE2-8364-6EC779CE8B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F319D45D-62CD-4EE2-8364-6EC779CE8B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F319D45D-62CD-4EE2-8364-6EC779CE8B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F319D45D-62CD-4EE2-8364-6EC779CE8B56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +129,8 @@ Global
 		{C95B77ED-E9EE-495B-A28C-880C0CAA474D} = {A1DD6A25-ADB5-425F-A89F-014FCD2AC959}
 		{DCC2BBC6-E3A5-46C4-9F8E-CE95010C1DCA} = {89252509-DA38-4CB6-8959-2CD7F8CFC13D}
 		{18E19174-9774-40FB-9213-01E1EFA86EC2} = {E33703A5-5951-407D-A30A-A7D8155231D9}
+		{1BE3A359-8A08-4904-A6D6-E7B784122D37} = {232C7E93-DD0F-4FDC-80F4-1654E4A1DA0A}
+		{F319D45D-62CD-4EE2-8364-6EC779CE8B56} = {1BE3A359-8A08-4904-A6D6-E7B784122D37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4F1B6D2-4C3F-4FA9-8C30-303BDEAA8B34}

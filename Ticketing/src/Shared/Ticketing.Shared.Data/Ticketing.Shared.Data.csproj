@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Data\Ticketing.Shared.Data.csproj" />
-  </ItemGroup>
-
 </Project>
