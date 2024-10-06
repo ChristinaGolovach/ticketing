@@ -1,5 +1,7 @@
 using Modules.Events.Data;
 using Modules.Orders.Data;
+using Modules.Payments.Data;
+
 
 namespace Ticketing.Api
 {
@@ -14,6 +16,7 @@ namespace Ticketing.Api
             builder.Services.AddControllers();
             builder.Services.AddEventsData(builder.Configuration);
             builder.Services.AddOrdersData(builder.Configuration);
+            builder.Services.AddPaymentsData(builder.Configuration);
 
 
             var app = builder.Build();

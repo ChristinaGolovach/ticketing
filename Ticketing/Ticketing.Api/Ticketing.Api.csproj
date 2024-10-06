@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\src\Modules\Events\Modules.Events.Data\Modules.Events.Data.csproj" />
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.Data\Modules.Orders.Data.csproj" />
+    <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.Data\Modules.Payments.Data.csproj" />
   </ItemGroup>
 
 </Project>
