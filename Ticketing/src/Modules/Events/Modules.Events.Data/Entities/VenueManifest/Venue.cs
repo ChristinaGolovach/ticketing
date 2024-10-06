@@ -10,5 +10,6 @@ namespace Modules.Events.Data.Entities.VenueManifest
         public string Street { get; set; }
         public string BuildNumber { get; set; }
         public IList<Section> Sections { get; set; }
+        public IList<Activity> Activities { get; set; }
     }
 }
