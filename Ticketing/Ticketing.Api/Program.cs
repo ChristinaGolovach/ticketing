@@ -1,4 +1,5 @@
 using Modules.Events.Data;
+using Modules.Orders.Data;
 
 namespace Ticketing.Api
 {
@@ -11,7 +12,9 @@ namespace Ticketing.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddEventData(builder.Configuration);
+            builder.Services.AddEventsData(builder.Configuration);
+            builder.Services.AddOrdersData(builder.Configuration);
+
 
             var app = builder.Build();
 
