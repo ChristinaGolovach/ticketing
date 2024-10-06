@@ -8,9 +8,9 @@ namespace Modules.Events.Data
         public EventsDBContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<EventsDBContext>();
-            var connectionString = args[0];
-            //optionsBuilder.UseSqlServer("Server=localhost;Database=Ticketing; Integrated Security=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer(connectionString);
+            //var connectionString = args[0];
+            //optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer("Server=localhost;Database=Ticketing; Integrated Security=True;TrustServerCertificate=True;");
 
             return new EventsDBContext(optionsBuilder.Options);
         }

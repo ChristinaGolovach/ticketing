@@ -25,9 +25,23 @@ namespace Modules.Events.Data
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
 
-        //private void OnSavingChanges (object sender, SavingChangesEventArgs eventArgs)
+        //private void OnSavingChanges(object sender, SavingChangesEventArgs eventArgs)
         //{
         //    var currentDate = DateTime.UtcNow;
+        //    foreach (var entry in ChangeTracker.Entries())
+        //    {
+        //        if (entry.State == EntityState.Added &&
+        //            entry.Entity is BaseEntity newBaseEntity)
+        //        {
+        //            newBaseEntity.Created = currentDate;
+        //            newBaseEntity.Updated = currentDate;
+        //        }
+        //        else if (entry.State == EntityState.Modified &&
+        //            entry.Entity is BaseEntity updatedBaseEntity)
+        //        {
+        //            updatedBaseEntity.Updated = currentDate;
+        //        }
+        //    }
         //}
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ticketing.Shared.Data.Repository;
 
 namespace Modules.Events.Data
 {
@@ -13,7 +13,7 @@ namespace Modules.Events.Data
                 options.UseSqlServer(configuration.GetConnectionString(EventsDBConstants.DBConnectionKey));
             });
 
-            //services.AddScoped<IHistoryRepository<EventArgs>, >
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }
