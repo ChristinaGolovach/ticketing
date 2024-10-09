@@ -1,4 +1,4 @@
-﻿namespace Modules.Events.Data.Entities.VenueManifest
+﻿namespace Modules.Events.Data.Entities
 {
     public enum SeatState
     {

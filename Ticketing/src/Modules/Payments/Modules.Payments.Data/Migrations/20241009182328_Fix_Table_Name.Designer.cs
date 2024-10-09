@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modules.Payments.Data;
 
@@ -11,9 +12,11 @@ using Modules.Payments.Data;
 namespace Modules.Payments.Data.Migrations
 {
     [DbContext(typeof(PaymentsDBContext))]
-    partial class PaymentsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241009182328_Fix_Table_Name")]
+    partial class Fix_Table_Name
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

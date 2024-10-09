@@ -26,9 +26,14 @@
             public static readonly string TableName = "Seats";
         }
 
-        public static class SeatOfferTable
+        public static class ActivitySeatTable
         {
-            public static readonly string TableName = "SeatOffers";
+            public static readonly string TableName = "ActivitySeats";
+        }
+
+        public static class ActivitySeatOfferTable
+        {
+            public static readonly string TableName = "ActivitySeatOffers";
         }
 
         public static class SectionTable

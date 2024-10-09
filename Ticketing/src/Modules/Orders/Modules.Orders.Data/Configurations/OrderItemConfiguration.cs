@@ -18,7 +18,7 @@ namespace Modules.Orders.Data.Configurations
             builder.Property(orderItem => orderItem.Amount)
                 .IsRequired();
 
-            builder.Property(orderItem => orderItem.SeatId)
+            builder.Property(orderItem => orderItem.ActivitySeatId)
                 .IsRequired();
 
             builder.HasOne(orderItem => orderItem.Order)

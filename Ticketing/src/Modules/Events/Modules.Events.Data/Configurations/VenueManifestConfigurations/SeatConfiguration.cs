@@ -18,17 +18,14 @@ namespace Modules.Events.Data.Configurations.VenueManifestConfigurations
             builder.Property(seat => seat.Number)
                 .IsRequired(false);
 
-            builder.Property(seat => seat.State)
-                .HasDefaultValue(SeatState.Available)
-                .IsRequired();
-
             builder.HasOne(seat => seat.Row)
                 .WithMany(row => row.Seats)
                 .HasForeignKey(seat => seat.RowId);
 
-            builder.HasMany(seat => seat.SeatOffers)
-                .WithOne(seatOffer => seatOffer.Seat)
-                .HasForeignKey(seatOffer => seatOffer.SeatId);
+            builder.HasMany(seat => seat.ActivitySeats)
+                .WithOne(activitySeat=> activitySeat.Seat)
+                .HasForeignKey(activitySeat => activitySeat.SeatId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

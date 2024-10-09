@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modules.Orders.Data;
 
@@ -11,9 +12,11 @@ using Modules.Orders.Data;
 namespace Modules.Orders.Data.Migrations
 {
     [DbContext(typeof(OrdersDBContext))]
-    partial class OrdersDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241009181606_Rename_Column_to_ActivitySeatId")]
+    partial class Rename_Column_to_ActivitySeatId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

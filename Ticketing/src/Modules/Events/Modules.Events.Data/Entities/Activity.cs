@@ -10,5 +10,7 @@ namespace Modules.Events.Data.Entities
         public Guid VenueId { get; set; }
         public Venue Venue { get; set; }
         public IList<ActivityOffer> ActivityOffers { get; set; }
+        public IList<ActivitySeat> ActivitySeats { get; set; }
+
     }
 }

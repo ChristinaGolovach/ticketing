@@ -9,7 +9,7 @@ namespace Modules.Events.Data
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityOffer> ActivityOffers { get; set; }
         public DbSet<Seat> Seats { get; set; }
-        public DbSet<SeatOffer> SeatOffers { get; set; }
+        public DbSet<ActivitySeatOffer> SeatOffers { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Row> Rows { get; set; }
         public DbSet<Venue> Venues { get; set; }

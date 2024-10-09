@@ -7,6 +7,6 @@ namespace Modules.Orders.Data.Entities
         public double Amount { get; set; }
         public Guid OrderId { get; set; }
         public Order Order { get; set; }
-        public Guid SeatId { get; set; }
+        public Guid ActivitySeatId { get; set; }
     }
 }

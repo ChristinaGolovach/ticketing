@@ -25,9 +25,9 @@ namespace Modules.Events.Data.Configurations
                 .WithMany(activity => activity.ActivityOffers)
                 .HasForeignKey(activityOffer => activityOffer.ActivityId);
 
-            builder.HasMany(activityOffer => activityOffer.SeatOffers)
-                .WithOne(seatOffer => seatOffer.ActivityOffer)
-                .HasForeignKey(seatOffer => seatOffer.ActivityOfferId);
+            builder.HasMany(activityOffer => activityOffer.ActivitySeatOffers)
+                .WithOne(activitySeatOffer => activitySeatOffer.ActivityOffer)
+                .HasForeignKey(activitySeatOffer => activitySeatOffer.ActivityOfferId);
         }
     }
 }

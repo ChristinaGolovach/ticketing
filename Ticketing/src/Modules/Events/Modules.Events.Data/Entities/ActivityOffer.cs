@@ -10,6 +10,6 @@ namespace Modules.Events.Data.Entities
 
         //[Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")] TODO Ask
         public double Amount { get; set; }
-        public IList<SeatOffer> SeatOffers { get; set; }
+        public IList<ActivitySeatOffer> ActivitySeatOffers { get; set; }
     }
 }

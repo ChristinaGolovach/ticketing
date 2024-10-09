@@ -7,7 +7,7 @@
 
         public static class PaymentTable
         {
-            public static readonly string TableName = "Orders";
+            public static readonly string TableName = "Payments";
         }
     }
 }
