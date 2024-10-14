@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Core\Ticketing.Shared.Core.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Data\Ticketing.Shared.Data.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Messaging\Ticketing.Shared.Messaging.csproj" />
+    <ProjectReference Include="..\Modules.Orders.Data\Modules.Orders.Data.csproj" />
+  </ItemGroup>
+
 </Project>

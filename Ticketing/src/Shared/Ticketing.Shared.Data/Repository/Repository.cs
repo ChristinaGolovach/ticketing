@@ -2,25 +2,27 @@
 
 namespace Ticketing.Shared.Data.Repository
 {
-    public class Repository<T> : IRepository<T> where T : BaseEntity
+    public class Repository<T, TContext> : IRepository<T, TContext> 
+        where T : BaseEntity 
+        where TContext : DbContext
     {
-        private readonly DbContext _dbContext;
+        private readonly TContext _dbContext;
         private readonly DbSet<T> _dbSet;
 
-        public Repository(DbContext dbContext)
+        public Repository(TContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(id, cancellationToken);
         }
 
-        public async Task<IList<T>> GetAllAsync()
+        public async Task<IList<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.ToListAsync(cancellationToken);
         }
 
         public IQueryable<T> Query()
@@ -47,10 +49,9 @@ namespace Ticketing.Shared.Data.Repository
             _dbSet.Update(entity);
         }
 
-        public async Task SaveChangesAsync()
+        public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             await _dbContext.SaveChangesAsync();
         }
-
     }
 }
