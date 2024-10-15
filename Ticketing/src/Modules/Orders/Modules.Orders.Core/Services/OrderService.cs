@@ -53,7 +53,6 @@ namespace Modules.Orders.Core.Services
         private async Task<Order> GetOrderWithItemsAsync(Guid orderId)
         {
             var order = await _repository.Query()
-                .AsNoTracking()
                 .Include(order => order.OrderItems)
                 .SingleOrDefaultAsync(order => order.Id == orderId);
 
