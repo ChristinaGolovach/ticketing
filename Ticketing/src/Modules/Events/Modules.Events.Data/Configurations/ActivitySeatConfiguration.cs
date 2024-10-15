@@ -28,10 +28,6 @@ namespace Modules.Events.Data.Configurations
                 .WithMany(activity => activity.ActivitySeats)
                 .HasForeignKey(activitySeat => activitySeat.ActivityId);
 
-            builder.HasOne(activitySeat => activitySeat.ActivitySeatOffer)
-                .WithOne(activitySeatOffer => activitySeatOffer.ActivitySeat)
-                .HasForeignKey<ActivitySeat>(activitySeat => activitySeat.ActivitySeatOfferId)
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
