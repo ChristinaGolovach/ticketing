@@ -48,7 +48,7 @@ namespace Modules.Payments.Core.Services
             payment.Status = PaymentStatus.Paid;
             _repository.Update(payment);
 
-            await _mediator.Send(new PaymentCompleteRequest
+            await _mediator.Send(new OrderCompleteRequest
             { 
                 PaymentId = paymentId,
                 OrderId = payment.OrderId,
@@ -66,7 +66,7 @@ namespace Modules.Payments.Core.Services
             payment.Status = PaymentStatus.Failed;
             _repository.Update(payment);
 
-            await _mediator.Send(new PaymentFailedRequest
+            await _mediator.Send(new OrderFailedRequest
             {
                 PaymentId = paymentId,
                 OrderId = payment.OrderId,

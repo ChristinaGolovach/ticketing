@@ -5,7 +5,7 @@ using Ticketing.Shared.Messaging.Requests;
 
 namespace Modules.Orders.ModuleApi
 {
-    public class OrderFailedHandler : IRequestHandler<PaymentFailedRequest, Unit>
+    public class OrderFailedHandler : IRequestHandler<OrderFailedRequest, Unit>
     {
         private readonly IOrderService _orderService;
 
@@ -14,7 +14,7 @@ namespace Modules.Orders.ModuleApi
             _orderService = orderService;
         }
 
-        public async Task<Unit> Handle(PaymentFailedRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(OrderFailedRequest request, CancellationToken cancellationToken)
         {
             await _orderService.UpdateOrderStatusAsync(request.OrderId, OrderStatus.Failed, cancellationToken);
 

@@ -2,7 +2,7 @@
 
 namespace Ticketing.Shared.Messaging.Requests
 {
-    public class AvailableSeatRequest : IRequest<Unit>
+    public class SeatAvailableRequest : IRequest<Unit>
     {
         public IList<Guid> SeatIds { get; set; }
     }

@@ -4,16 +4,16 @@ using Ticketing.Shared.Messaging.Requests;
 
 namespace Modules.Events.ModuleApi
 {
-    public class SoldSeatHandler : IRequestHandler<SoldSeatRequest, Unit>
+    public class SeatSoldHandler : IRequestHandler<SeatSoldRequest, Unit>
     {
         private readonly IActivitySeatService _activitySeatService;
 
-        public SoldSeatHandler(IActivitySeatService activitySeatService)
+        public SeatSoldHandler(IActivitySeatService activitySeatService)
         {
             _activitySeatService = activitySeatService;
         }
 
-        public async Task<Unit> Handle(SoldSeatRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SeatSoldRequest request, CancellationToken cancellationToken)
         {
             await _activitySeatService.UpdateActivitySeatStateAsync(request.SeatIds, Data.Entities.SeatState.Sold, cancellationToken);
             return Unit.Value;

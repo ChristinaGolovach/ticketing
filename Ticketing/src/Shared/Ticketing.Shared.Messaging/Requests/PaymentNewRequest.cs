@@ -2,9 +2,9 @@
 
 namespace Ticketing.Shared.Messaging.Requests
 {
-    public class PaymentFailedRequest : IRequest<Unit>
+    public class PaymentNewRequest : IRequest<Guid>
     {
         public Guid OrderId { get; set; }
-        public Guid PaymentId { get; set; }
+        public double Amount { get; set; }
     }
 }

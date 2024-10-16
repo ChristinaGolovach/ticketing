@@ -5,6 +5,7 @@ using Modules.Orders.Data;
 using Modules.Orders.ModuleApi;
 using Modules.Payments.Data;
 using Modules.Payments.Api;
+using Modules.Payments.ModuleApi;
 using Modules.Users.Data;
 using Modules.Events.Api;
 using Modules.Events.ModuleApi;
@@ -36,6 +37,7 @@ namespace Ticketing.Api
 
             builder.Services.AddEventModuleApi();
             builder.Services.AddOrderModuleApi();
+            builder.Services.AddPaymentModuleApi();
 
             builder.Services.AddSharedRequests();
 

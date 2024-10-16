@@ -19,6 +19,7 @@
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.ModuleApi\Modules.Orders.ModuleApi.csproj" />
     <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.Api\Modules.Payments.Api.csproj" />
     <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.Data\Modules.Payments.Data.csproj" />
+    <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.ModuleApi\Modules.Payments.ModuleApi.csproj" />
     <ProjectReference Include="..\src\Modules\Users\Modules.Users.Data\Modules.Users.Data.csproj" />
     <ProjectReference Include="..\src\Shared\Ticketing.Shared.Core\Ticketing.Shared.Core.csproj" />
     <ProjectReference Include="..\src\Shared\Ticketing.Shared.Messaging\Ticketing.Shared.Messaging.csproj" />

@@ -46,11 +46,13 @@ namespace Modules.Orders.Api.Controllers
             }
 
             var result = await _orderService.AddSeatAsync(userId, orderId, seat, cancellationToken);
+            //return Created(result);
             return Ok(result);
         }
 
+        //TODO remove user ID
         [HttpPut("{userId}/{orderId}/book")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> BookSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
         {
@@ -58,8 +60,9 @@ namespace Modules.Orders.Api.Controllers
             {
                 return BadRequest();
             }
+            var result = await _orderService.BookSeatsAsync(userId, orderId, cancellationToken);
 
-            throw new NotImplementedException();
+            return Ok(result);
         }
 
         [HttpDelete("{userId}/{orderId}/seats/{activitySeatId}")]

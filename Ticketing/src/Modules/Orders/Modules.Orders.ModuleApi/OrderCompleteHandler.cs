@@ -5,7 +5,7 @@ using Ticketing.Shared.Messaging.Requests;
 
 namespace Modules.Orders.ModuleApi
 {
-    public class OrderCompleteHandler : IRequestHandler<PaymentCompleteRequest, Unit>
+    public class OrderCompleteHandler : IRequestHandler<OrderCompleteRequest, Unit>
     {
         private readonly IOrderService _orderService;
 
@@ -14,7 +14,7 @@ namespace Modules.Orders.ModuleApi
             _orderService = orderService;
         }
 
-        public async Task<Unit> Handle(PaymentCompleteRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(OrderCompleteRequest request, CancellationToken cancellationToken)
         {
             await _orderService.UpdateOrderStatusAsync(request.OrderId, OrderStatus.Paid, cancellationToken);
             return Unit.Value;

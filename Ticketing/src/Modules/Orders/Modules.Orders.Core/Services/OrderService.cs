@@ -76,15 +76,21 @@ namespace Modules.Orders.Core.Services
             return viewOrder;
         }
 
-        public async Task BookSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
+        public async Task<Guid> BookSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
-            await _mediator.Send(new BookSeatRequest
+            await _mediator.Send(new SeatBookRequest
             {
                 SeatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList()
             });
 
+            var paymentId = await _mediator.Send(new PaymentNewRequest
+            {
+                OrderId = orderId,
+                Amount = order.Amount
+            });
 
+            return paymentId;
         }
 
         public async Task DeleteSeatAsync(Guid userId, Guid orderId, Guid eventId, Guid activitySeatId, CancellationToken cancellationToken = default)
@@ -102,14 +108,14 @@ namespace Modules.Orders.Core.Services
             switch (status)
             {
                 case OrderStatus.Failed:
-                    await _mediator.Send(new AvailableSeatRequest
+                    await _mediator.Send(new SeatAvailableRequest
                     {
                         SeatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList()
                     },
                     cancellationToken);
                     break;
                 case OrderStatus.Paid:
-                    await _mediator.Send(new SoldSeatRequest
+                    await _mediator.Send(new SeatSoldRequest
                     {
                         SeatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList()
                     },
