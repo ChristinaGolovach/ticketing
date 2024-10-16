@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Modules.Payments.Core.Models;
 using Modules.Payments.Data;
 using Modules.Payments.Data.Entities;
@@ -12,16 +13,32 @@ namespace Modules.Payments.Core.Services
     {
         private readonly IRepository<Payment, PaymentsDBContext> _repository;
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public PaymentService(IRepository<Payment, PaymentsDBContext> repository, IMediator mediator)
+        public PaymentService(IRepository<Payment, PaymentsDBContext> repository, 
+            IMediator mediator,
+            IMapper mapper)
         {
             _repository = repository;
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         public Task<ViewPaymentDto> GetPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ViewPaymentDto> CreatePaymentAsync(Guid orderId, double amount, CancellationToken cancellationToken = default)
+        {
+            var payment = new Payment { Amount = amount, OrderId = orderId, Status = PaymentStatus.InProcess };
+
+            await _repository.AddAsync(payment, cancellationToken);
+            await _repository.SaveChangesAsync(cancellationToken);
+
+           var paymentDto = _mapper.Map<ViewPaymentDto>(payment);
+
+            return paymentDto;
         }
 
         public async Task CompletePaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
@@ -39,6 +56,7 @@ namespace Modules.Payments.Core.Services
             cancellationToken);
 
             await _repository.SaveChangesAsync(cancellationToken);
+
         }
 
         public async Task FailedPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)

@@ -52,7 +52,7 @@ namespace Modules.Orders.Api.Controllers
         [HttpPut("{userId}/{orderId}/book")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> BookOrderSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> BookSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
         {
             if (userId == Guid.Empty || orderId == Guid.Empty)
             {
