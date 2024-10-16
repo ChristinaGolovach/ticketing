@@ -30,9 +30,9 @@ namespace Ticketing.Shared.Data.Repository
             return _dbSet;
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbSet.AddAsync(entity, cancellationToken);
         }
 
         public void Update(T entity)

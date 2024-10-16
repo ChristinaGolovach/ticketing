@@ -10,8 +10,8 @@ namespace Modules.Events.Core.Services
 {
     public class VenueService : IVenueService
     {
-        private IRepository<Venue, EventsDBContext> _repository;
-        private IMapper _mapper;
+        private readonly IRepository<Venue, EventsDBContext> _repository;
+        private readonly IMapper _mapper;
 
         public VenueService(IRepository<Venue, EventsDBContext> repository, IMapper mapper)
         {

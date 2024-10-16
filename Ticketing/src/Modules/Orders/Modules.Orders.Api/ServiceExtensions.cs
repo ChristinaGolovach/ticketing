@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Modules.Orders.Core.Services;
+using Modules.Orders.Core;
 
 namespace Modules.Orders.Api
 {
@@ -11,6 +12,9 @@ namespace Modules.Orders.Api
                 .AddApplicationPart(typeof(ServiceExtensions).Assembly);
 
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderItemService, OrderItemService>();
+
+            services.AddOrderCore();
         }
     }
 }

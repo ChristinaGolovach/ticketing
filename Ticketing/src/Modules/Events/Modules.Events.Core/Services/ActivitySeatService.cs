@@ -7,8 +7,7 @@ namespace Modules.Events.Core.Services
 {
     public class ActivitySeatService : IActivitySeatService
     {
-        private IRepository<ActivitySeat, EventsDBContext> _repository;
-
+        private readonly IRepository<ActivitySeat, EventsDBContext> _repository;
  
         public ActivitySeatService(IRepository<ActivitySeat, EventsDBContext> repository)
         {

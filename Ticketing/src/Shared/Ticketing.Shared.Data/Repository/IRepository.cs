@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Threading;
 
 namespace Ticketing.Shared.Data.Repository
 {
@@ -10,7 +9,7 @@ namespace Ticketing.Shared.Data.Repository
         Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
         Task<IList<T>> GetAllAsync(CancellationToken cancellationToken = default);
         IQueryable<T> Query();
-        Task AddAsync(T entity);
+        Task AddAsync(T entity, CancellationToken cancellationToken = default);
         void Update(T entity);
         void Delete(T entity);
         Task SaveChangesAsync(CancellationToken cancellationToken = default);

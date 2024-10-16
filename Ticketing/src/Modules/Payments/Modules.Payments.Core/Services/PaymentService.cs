@@ -10,8 +10,8 @@ namespace Modules.Payments.Core.Services
 {
     public class PaymentService : IPaymentService
     {
+        private readonly IRepository<Payment, PaymentsDBContext> _repository;
         private readonly IMediator _mediator;
-        private IRepository<Payment, PaymentsDBContext> _repository;
 
         public PaymentService(IRepository<Payment, PaymentsDBContext> repository, IMediator mediator)
         {

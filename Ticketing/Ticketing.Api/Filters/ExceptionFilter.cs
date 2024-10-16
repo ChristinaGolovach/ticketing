@@ -21,6 +21,9 @@ namespace Ticketing.Api.Filters
                 case ResourceNotFoundException resourceNotFoundException:
                     SetupContextForException(context, HttpStatusCode.NotFound, resourceNotFoundException.Message);
                     break;
+                case ResourceDuplicateException resourceDuplicateException:
+                    SetupContextForException(context, HttpStatusCode.Conflict, resourceDuplicateException.Message);
+                    break;
                 default:
                     SetupContextForException(context, HttpStatusCode.InternalServerError, ErrorMessage);
                     break;

@@ -10,18 +10,14 @@ namespace Modules.Events.Core.Services
 {
     public class ActivityService : IActivityService
     {
-        private IRepository<Activity, EventsDBContext> _repository;
-        private IRepository<ActivitySeat, EventsDBContext> _repositoryActivitySeats;
-
-        private IMapper _mapper;
+        private readonly IRepository<Activity, EventsDBContext> _repository;
+        private readonly IMapper _mapper;
 
         public ActivityService(
             IRepository<Activity, EventsDBContext> repository,
-            IRepository<ActivitySeat, EventsDBContext> repositoryActivitySeats,
             IMapper mapper)
         {
             _repository = repository;
-            _repositoryActivitySeats = repositoryActivitySeats;
             _mapper = mapper;
         }
 
