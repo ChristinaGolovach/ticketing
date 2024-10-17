@@ -10,7 +10,6 @@ namespace Modules.Events.Data.Entities
         public Seat Seat { get; set; }
         public Guid ActivityId { get; set; }
         public Activity Activity { get; set; }
-        public Guid ActivitySeatOfferId { get; set; }
         public ActivitySeatOffer ActivitySeatOffer { get; set; }
 
     }

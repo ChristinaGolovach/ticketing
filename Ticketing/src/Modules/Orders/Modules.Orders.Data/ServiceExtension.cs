@@ -12,8 +12,6 @@ namespace Modules.Orders.Data
             services.AddDbContext<OrdersDBContext>(options => {
                 options.UseSqlServer(configuration.GetConnectionString(OrdersDBConstants.DBConnectionKey));
             });
-
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }

@@ -12,8 +12,6 @@ namespace Modules.Payments.Data
             services.AddDbContext<PaymentsDBContext>(options => {
                 options.UseSqlServer(configuration.GetConnectionString(PaymentsDBConstants.DBConnectionKey));
             });
-
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }

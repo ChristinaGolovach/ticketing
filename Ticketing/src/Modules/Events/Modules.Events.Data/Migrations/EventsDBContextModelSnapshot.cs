@@ -56,6 +56,28 @@ namespace Modules.Events.Data.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("Activities", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5054),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Name = "Ram",
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5054),
+                            VenueId = new Guid("c82171f1-aa5f-4434-b0cd-90a8bedeb4af")
+                        },
+                        new
+                        {
+                            Id = new Guid("7933e0d3-4905-4d2c-b9a1-c20ead197883"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5056),
+                            Date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            Name = "Circus",
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5056),
+                            VenueId = new Guid("ef0716cb-54d8-4ddb-8d25-b2a8cb61f026")
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.ActivityOffer", b =>
@@ -89,6 +111,68 @@ namespace Modules.Events.Data.Migrations
                     b.HasIndex("ActivityId");
 
                     b.ToTable("ActivityOffers", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("cee58eef-219c-4551-9031-4ae68a17dd8b"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Amount = 250.0,
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5072),
+                            Deleted = false,
+                            PriceType = 2,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5073)
+                        },
+                        new
+                        {
+                            Id = new Guid("53e2569d-3ea4-4b47-9480-46952765c0c9"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Amount = 500.0,
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5074),
+                            Deleted = false,
+                            PriceType = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5075)
+                        },
+                        new
+                        {
+                            Id = new Guid("440f0129-8982-4c77-97e9-76cd3efa67d0"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Amount = 800.0,
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5076),
+                            Deleted = false,
+                            PriceType = 3,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5077)
+                        },
+                        new
+                        {
+                            Id = new Guid("630dd83c-78f3-4e84-b2dd-01bbc52093bd"),
+                            ActivityId = new Guid("7933e0d3-4905-4d2c-b9a1-c20ead197883"),
+                            Amount = 50.5,
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5078),
+                            Deleted = false,
+                            PriceType = 2,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5078)
+                        },
+                        new
+                        {
+                            Id = new Guid("edafbcfe-d72b-4b31-89ad-47cff341b8ee"),
+                            ActivityId = new Guid("7933e0d3-4905-4d2c-b9a1-c20ead197883"),
+                            Amount = 100.5,
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5080),
+                            Deleted = false,
+                            PriceType = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5080)
+                        },
+                        new
+                        {
+                            Id = new Guid("6b0514ab-1eac-41cd-89b5-f4d0660789b7"),
+                            ActivityId = new Guid("7933e0d3-4905-4d2c-b9a1-c20ead197883"),
+                            Amount = 200.30000000000001,
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5082),
+                            Deleted = false,
+                            PriceType = 3,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5082)
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.ActivitySeat", b =>
@@ -98,9 +182,6 @@ namespace Modules.Events.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ActivityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ActivitySeatOfferId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
@@ -129,6 +210,88 @@ namespace Modules.Events.Data.Migrations
                     b.HasIndex("SeatId");
 
                     b.ToTable("ActivitySeats", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("28eeaa98-3068-4a7a-8b6e-4457d81d5312"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5102),
+                            Deleted = false,
+                            SeatId = new Guid("9553dfdd-34cf-4a1b-a9fd-98f6c282fe46"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5103)
+                        },
+                        new
+                        {
+                            Id = new Guid("d4016119-36b7-459a-a79f-534f5d69efb3"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5105),
+                            Deleted = false,
+                            SeatId = new Guid("38862315-7946-499c-a4e8-1dae5221a6fd"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5105)
+                        },
+                        new
+                        {
+                            Id = new Guid("433cf7f1-ca84-46fe-9eed-d33124b84acd"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5107),
+                            Deleted = false,
+                            SeatId = new Guid("f0b63081-812f-4901-8016-422ef2437cc9"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5108)
+                        },
+                        new
+                        {
+                            Id = new Guid("194b2efc-02c8-45ab-a375-408e65f30c4a"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5109),
+                            Deleted = false,
+                            SeatId = new Guid("f137e8cc-b2ba-48ce-9573-53c9559f006f"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5110)
+                        },
+                        new
+                        {
+                            Id = new Guid("c85d23cd-61e9-476b-b177-f64ed29dc0d5"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5111),
+                            Deleted = false,
+                            SeatId = new Guid("a336f3aa-f729-45c3-83be-db6825482152"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5111)
+                        },
+                        new
+                        {
+                            Id = new Guid("5928bf55-e20a-418c-9835-d94dba6fb95d"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5113),
+                            Deleted = false,
+                            SeatId = new Guid("2d803fe6-255b-418a-9b1d-acd9e97f7dba"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5113)
+                        },
+                        new
+                        {
+                            Id = new Guid("69971097-4471-4175-ac39-e6d5f5dbfc07"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5115),
+                            Deleted = false,
+                            SeatId = new Guid("2eeafcb1-08ad-4ef1-8ce9-89234c3dd251"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5115)
+                        },
+                        new
+                        {
+                            Id = new Guid("087b509d-1ada-492e-a9c7-ed3e917bb2fb"),
+                            ActivityId = new Guid("7933e0d3-4905-4d2c-b9a1-c20ead197883"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5117),
+                            Deleted = false,
+                            SeatId = new Guid("60593976-4fd5-430b-8f59-e4b402f56f12"),
+                            State = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5117)
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.ActivitySeatOffer", b =>
@@ -192,6 +355,44 @@ namespace Modules.Events.Data.Migrations
                     b.HasIndex("SectionId");
 
                     b.ToTable("Rows", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3eb84460-8144-4340-9577-5c4d3c90f532"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4995),
+                            Deleted = false,
+                            Number = 1,
+                            SectionId = new Guid("b6a3c9e9-b7f5-425d-a716-d2d7f788f423"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4995)
+                        },
+                        new
+                        {
+                            Id = new Guid("6013c720-74c8-4285-bfe4-e7104890f7fa"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4999),
+                            Deleted = false,
+                            Number = 2,
+                            SectionId = new Guid("b6a3c9e9-b7f5-425d-a716-d2d7f788f423"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4999)
+                        },
+                        new
+                        {
+                            Id = new Guid("ed7b3f11-4a85-446f-b5e0-679033f0b0a1"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5001),
+                            Deleted = false,
+                            Number = 1,
+                            SectionId = new Guid("38dc4132-780d-4fc1-8f66-1badbd06e6f5"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5001)
+                        },
+                        new
+                        {
+                            Id = new Guid("3421eb72-8ead-45f8-9204-975d00e3f030"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5002),
+                            Deleted = false,
+                            Number = 1,
+                            SectionId = new Guid("51440082-c6a0-43d9-8a92-c4e0318f24cd"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5003)
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.VenueManifest.Seat", b =>
@@ -222,6 +423,80 @@ namespace Modules.Events.Data.Migrations
                     b.HasIndex("RowId");
 
                     b.ToTable("Seats", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9553dfdd-34cf-4a1b-a9fd-98f6c282fe46"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5022),
+                            Deleted = false,
+                            Number = 1,
+                            RowId = new Guid("3eb84460-8144-4340-9577-5c4d3c90f532"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5022)
+                        },
+                        new
+                        {
+                            Id = new Guid("38862315-7946-499c-a4e8-1dae5221a6fd"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5024),
+                            Deleted = false,
+                            Number = 2,
+                            RowId = new Guid("3eb84460-8144-4340-9577-5c4d3c90f532"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5024)
+                        },
+                        new
+                        {
+                            Id = new Guid("f0b63081-812f-4901-8016-422ef2437cc9"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5026),
+                            Deleted = false,
+                            Number = 3,
+                            RowId = new Guid("3eb84460-8144-4340-9577-5c4d3c90f532"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5026)
+                        },
+                        new
+                        {
+                            Id = new Guid("f137e8cc-b2ba-48ce-9573-53c9559f006f"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5027),
+                            Deleted = false,
+                            Number = 1,
+                            RowId = new Guid("6013c720-74c8-4285-bfe4-e7104890f7fa"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5028)
+                        },
+                        new
+                        {
+                            Id = new Guid("a336f3aa-f729-45c3-83be-db6825482152"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5029),
+                            Deleted = false,
+                            Number = 2,
+                            RowId = new Guid("6013c720-74c8-4285-bfe4-e7104890f7fa"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5029)
+                        },
+                        new
+                        {
+                            Id = new Guid("2d803fe6-255b-418a-9b1d-acd9e97f7dba"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5031),
+                            Deleted = false,
+                            Number = 1,
+                            RowId = new Guid("ed7b3f11-4a85-446f-b5e0-679033f0b0a1"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5031)
+                        },
+                        new
+                        {
+                            Id = new Guid("2eeafcb1-08ad-4ef1-8ce9-89234c3dd251"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5032),
+                            Deleted = false,
+                            Number = 2,
+                            RowId = new Guid("ed7b3f11-4a85-446f-b5e0-679033f0b0a1"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5032)
+                        },
+                        new
+                        {
+                            Id = new Guid("60593976-4fd5-430b-8f59-e4b402f56f12"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5034),
+                            Deleted = false,
+                            Number = 1,
+                            RowId = new Guid("3421eb72-8ead-45f8-9204-975d00e3f030"),
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(5034)
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.VenueManifest.Section", b =>
@@ -252,6 +527,35 @@ namespace Modules.Events.Data.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("Sections", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b6a3c9e9-b7f5-425d-a716-d2d7f788f423"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4969),
+                            Deleted = false,
+                            Number = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4969),
+                            VenueId = new Guid("c82171f1-aa5f-4434-b0cd-90a8bedeb4af")
+                        },
+                        new
+                        {
+                            Id = new Guid("38dc4132-780d-4fc1-8f66-1badbd06e6f5"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4972),
+                            Deleted = false,
+                            Number = 2,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4972),
+                            VenueId = new Guid("c82171f1-aa5f-4434-b0cd-90a8bedeb4af")
+                        },
+                        new
+                        {
+                            Id = new Guid("51440082-c6a0-43d9-8a92-c4e0318f24cd"),
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4975),
+                            Deleted = false,
+                            Number = 1,
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4975),
+                            VenueId = new Guid("ef0716cb-54d8-4ddb-8d25-b2a8cb61f026")
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.VenueManifest.Venue", b =>
@@ -299,6 +603,32 @@ namespace Modules.Events.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Venues", "events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c82171f1-aa5f-4434-b0cd-90a8bedeb4af"),
+                            BuildNumber = "15A",
+                            City = "Lodz",
+                            Country = "Poland",
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4848),
+                            Deleted = false,
+                            Name = "Arena",
+                            Street = "Kolobzesk",
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4850)
+                        },
+                        new
+                        {
+                            Id = new Guid("ef0716cb-54d8-4ddb-8d25-b2a8cb61f026"),
+                            BuildNumber = "98",
+                            City = "Gdansk",
+                            Country = "Poland",
+                            Created = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4877),
+                            Deleted = false,
+                            Name = "GHT Arena",
+                            Street = "Opolska",
+                            Updated = new DateTime(2024, 10, 15, 15, 51, 25, 183, DateTimeKind.Utc).AddTicks(4878)
+                        });
                 });
 
             modelBuilder.Entity("Modules.Events.Data.Entities.Activity", b =>

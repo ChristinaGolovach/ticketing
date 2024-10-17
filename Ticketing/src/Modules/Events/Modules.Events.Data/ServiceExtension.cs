@@ -12,8 +12,6 @@ namespace Modules.Events.Data
             services.AddDbContext<EventsDBContext>(options => {
                 options.UseSqlServer(configuration.GetConnectionString(EventsDBConstants.DBConnectionKey));
             });
-
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }

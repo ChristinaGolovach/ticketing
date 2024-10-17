@@ -55,6 +55,30 @@ namespace Modules.Orders.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders", "orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("43ae8ddc-0528-4d89-b947-08b12b688b89"),
+                            ActivityId = new Guid("8b5fa894-dfcf-4bb4-a605-5f99985c3805"),
+                            Amount = 1250.0,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4228),
+                            Deleted = false,
+                            Status = 1,
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4229),
+                            UserId = new Guid("c4b4f2ba-67f7-4193-8406-89f269081b6c")
+                        },
+                        new
+                        {
+                            Id = new Guid("283d9fcf-6b89-4747-a70f-91b3f3c9954f"),
+                            ActivityId = new Guid("7933e0d3-4905-4d2c-b9a1-c20ead197883"),
+                            Amount = 50.5,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4242),
+                            Deleted = false,
+                            Status = 1,
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4242),
+                            UserId = new Guid("3bb7f4ce-d6a7-48e4-bb71-e8e2268bd3e9")
+                        });
                 });
 
             modelBuilder.Entity("Modules.Orders.Data.Entities.OrderItem", b =>
@@ -88,6 +112,58 @@ namespace Modules.Orders.Data.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems", "orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8c9922e2-98fa-4bfd-82bc-5930db899848"),
+                            ActivitySeatId = new Guid("28eeaa98-3068-4a7a-8b6e-4457d81d5312"),
+                            Amount = 250.0,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4336),
+                            Deleted = false,
+                            OrderId = new Guid("43ae8ddc-0528-4d89-b947-08b12b688b89"),
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4337)
+                        },
+                        new
+                        {
+                            Id = new Guid("b588359f-97c6-46fa-9c3d-e4f5098c0218"),
+                            ActivitySeatId = new Guid("d4016119-36b7-459a-a79f-534f5d69efb3"),
+                            Amount = 250.0,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4340),
+                            Deleted = false,
+                            OrderId = new Guid("43ae8ddc-0528-4d89-b947-08b12b688b89"),
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4340)
+                        },
+                        new
+                        {
+                            Id = new Guid("83e6feed-73e5-4db2-a192-97310ab2b8d5"),
+                            ActivitySeatId = new Guid("433cf7f1-ca84-46fe-9eed-d33124b84acd"),
+                            Amount = 250.0,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4343),
+                            Deleted = false,
+                            OrderId = new Guid("43ae8ddc-0528-4d89-b947-08b12b688b89"),
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4343)
+                        },
+                        new
+                        {
+                            Id = new Guid("314530bd-eddb-4753-aeda-6ff8d9aa4dd1"),
+                            ActivitySeatId = new Guid("194b2efc-02c8-45ab-a375-408e65f30c4a"),
+                            Amount = 500.0,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4345),
+                            Deleted = false,
+                            OrderId = new Guid("43ae8ddc-0528-4d89-b947-08b12b688b89"),
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4345)
+                        },
+                        new
+                        {
+                            Id = new Guid("542357cb-6caf-4316-9b54-e605fcc81bf5"),
+                            ActivitySeatId = new Guid("087b509d-1ada-492e-a9c7-ed3e917bb2fb"),
+                            Amount = 50.5,
+                            Created = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4347),
+                            Deleted = false,
+                            OrderId = new Guid("283d9fcf-6b89-4747-a70f-91b3f3c9954f"),
+                            Updated = new DateTime(2024, 10, 16, 10, 11, 25, 336, DateTimeKind.Utc).AddTicks(4347)
+                        });
                 });
 
             modelBuilder.Entity("Modules.Orders.Data.Entities.OrderItem", b =>
