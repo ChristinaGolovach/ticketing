@@ -24,9 +24,18 @@ namespace Modules.Payments.Core.Services
             _mapper = mapper;
         }
 
-        public Task<ViewPaymentDto> GetPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
+        public async Task<ViewPaymentDto> GetPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var payment = await _repository.GetByIdAsync(paymentId, cancellationToken);
+
+            if (payment == null)
+            {
+                throw new ResourceNotFoundException($"Payment {paymentId} is not found.");
+            }
+
+            var paymentDto = _mapper.Map<ViewPaymentDto>(payment);
+
+            return paymentDto;
         }
 
         public async Task<ViewPaymentDto> CreatePaymentAsync(Guid orderId, double amount, CancellationToken cancellationToken = default)

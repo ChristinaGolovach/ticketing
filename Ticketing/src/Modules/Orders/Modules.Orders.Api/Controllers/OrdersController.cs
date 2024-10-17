@@ -32,51 +32,53 @@ namespace Modules.Orders.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("{userId}/{orderId}")]
+        [HttpPost("{orderId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> AddSeatAsync(Guid userId, Guid orderId, [FromBody] AddSeatDto seat,
+        public async Task<IActionResult> AddSeatAsync(Guid orderId, [FromBody] AddSeatDto seat,
             CancellationToken cancellationToken = default)
         {
-            if (userId == Guid.Empty || orderId == Guid.Empty || seat == null)
+            if (orderId == Guid.Empty || seat == null)
             {
                 return BadRequest();
             }
 
-            var result = await _orderService.AddSeatAsync(userId, orderId, seat, cancellationToken);
-            //return Created(result);
+            var result = await _orderService.AddSeatAsync(orderId, seat, cancellationToken);
+
+            //return Created(link, result);
             return Ok(result);
         }
 
-        //TODO remove user ID
-        [HttpPut("{userId}/{orderId}/book")]
+        [HttpPut("{orderId}/book")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> BookSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> BookSeatsAsync(Guid orderId, CancellationToken cancellationToken = default)
         {
-            if (userId == Guid.Empty || orderId == Guid.Empty)
+            if (orderId == Guid.Empty)
             {
                 return BadRequest();
             }
-            var result = await _orderService.BookSeatsAsync(userId, orderId, cancellationToken);
+            var result = await _orderService.BookSeatsAsync(orderId, cancellationToken);
 
             return Ok(result);
         }
 
-        [HttpDelete("{userId}/{orderId}/seats/{activitySeatId}")]
+        [HttpDelete("{orderId}/seats/{activitySeatId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteSeatAsync(Guid userId, Guid orderId, Guid activitySeatId,
+        public async Task<IActionResult> DeleteSeatAsync(Guid orderId, Guid activitySeatId,
             CancellationToken cancellationToken = default)
         {
-            if (userId == Guid.Empty || orderId == Guid.Empty || activitySeatId == Guid.Empty)
+            if (orderId == Guid.Empty || activitySeatId == Guid.Empty)
             {
                 return BadRequest();
             }
 
-            throw new NotImplementedException();
+            await _orderService.DeleteSeatAsync(orderId, activitySeatId, cancellationToken);
+
+            return NoContent();
         }
     }
 }

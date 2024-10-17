@@ -52,18 +52,13 @@ namespace Modules.Orders.Core.Services
             return viewOrder;
         }
 
-        public async Task<ViewOrderDto> AddSeatAsync(Guid userId, Guid orderId, AddSeatDto seat, CancellationToken cancellationToken = default)
+        public async Task<ViewOrderDto> AddSeatAsync(Guid orderId, AddSeatDto seat, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
 
-            if (order.UserId != userId)
-            {
-                throw new ResourceNotFoundException($"User {userId} is not found.");
-            }
-
             if (order.OrderItems.Any(orderItem => orderItem.ActivitySeatId == seat.ActivitySeatId))
             {
-                throw new ResourceDuplicateException($"Seat {seat.ActivitySeatId} is already added to order {orderId}.");
+                throw new ResourceDuplicateException($"Seat {seat.ActivitySeatId} is already added to the order {orderId}.");
             }
 
             await _orderItemService.AddOrderItemAsync(orderId, seat, cancellationToken);
@@ -76,7 +71,7 @@ namespace Modules.Orders.Core.Services
             return viewOrder;
         }
 
-        public async Task<Guid> BookSeatsAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
+        public async Task<Guid> BookSeatsAsync( Guid orderId, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
             await _mediator.Send(new SeatBookRequest
@@ -93,9 +88,16 @@ namespace Modules.Orders.Core.Services
             return paymentId;
         }
 
-        public async Task DeleteSeatAsync(Guid userId, Guid orderId, Guid eventId, Guid activitySeatId, CancellationToken cancellationToken = default)
+        public async Task DeleteSeatAsync(Guid orderId, Guid activitySeatId, CancellationToken cancellationToken = default)
         {
+            var order = await _repository.GetByIdAsync(orderId);
 
+            if (order == null || order.Deleted)
+            {
+                throw new ResourceNotFoundException($"Order {orderId} is not found.");
+            }
+
+            await _orderItemService.DeleteOrderItemAsync(activitySeatId, cancellationToken);
         }
 
         public async Task UpdateOrderStatusAsync(Guid orderId, OrderStatus status, CancellationToken cancellationToken = default)
@@ -131,8 +133,8 @@ namespace Modules.Orders.Core.Services
         private async Task<Order> GetOrderWithItemsAsync(Guid orderId)
         {
             var order = await _repository.Query()
-                .Include(order => order.OrderItems)
-                .SingleOrDefaultAsync(order => order.Id == orderId);
+                .Include(order => order.OrderItems.Where(orderItem => !orderItem.Deleted))
+                .SingleOrDefaultAsync(order => order.Id == orderId && !order.Deleted);
 
             if (order == null)
             {

@@ -18,9 +18,15 @@ namespace Modules.Payments.Api.Controllers
         [HttpGet("{paymentId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ViewPaymentDto> GetAsync(Guid paymentId, CancellationToken cancellationToken = default) 
+        public async Task<ActionResult<ViewPaymentDto>> GetAsync(Guid paymentId, CancellationToken cancellationToken = default) 
         {
-            throw new NotImplementedException();
+            if (paymentId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var result = await _paymentService.GetPaymentAsync(paymentId, cancellationToken);
+            return Ok(result);
         }
 
         [HttpPost("{paymentId}/complete")]
@@ -28,7 +34,12 @@ namespace Modules.Payments.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CompletePaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
         {
-            await _paymentService.CompletePaymentAsync(paymentId);
+            if (paymentId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await _paymentService.CompletePaymentAsync(paymentId, cancellationToken);
             return NoContent();
         }
 
@@ -37,9 +48,13 @@ namespace Modules.Payments.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> FailedPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
         {
-            await _paymentService.FailedPaymentAsync(paymentId);
+            if (paymentId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            await _paymentService.FailedPaymentAsync(paymentId, cancellationToken);
             return NoContent();
         }
-
     }
 }
