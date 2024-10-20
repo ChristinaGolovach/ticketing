@@ -1,4 +1,4 @@
-﻿using Modules.Orders.Core.Models;
+﻿using Modules.Orders.Core.Models.Dtos;
 
 namespace Modules.Orders.Core.Services
 {

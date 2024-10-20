@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Modules.Orders.Core.Models;
+using Modules.Orders.Core.Models.Dtos;
 using Modules.Orders.Data;
 using Modules.Orders.Data.Entities;
 using Ticketing.Shared.Core.Exceptions;
@@ -71,21 +72,22 @@ namespace Modules.Orders.Core.Services
             return viewOrder;
         }
 
-        public async Task<Guid> BookSeatsAsync( Guid orderId, CancellationToken cancellationToken = default)
+        public async Task<OrderActionResult> ApplyActionAsync(Guid orderId, OrderAction orderAction, CancellationToken cancellationToken = default)
         {
-            var order = await GetOrderWithItemsAsync(orderId);
-            await _mediator.Send(new SeatBookRequest
-            {
-                SeatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList()
-            });
+            var orderActionResponse = new OrderActionResult();
 
-            var paymentId = await _mediator.Send(new PaymentNewRequest
+            switch (orderAction)
             {
-                OrderId = orderId,
-                Amount = order.Amount
-            });
+                case OrderAction.Submit:
+                    orderActionResponse = await SubmitOrderAsync(orderId, cancellationToken);
+                    break;
+                case OrderAction.Cancel:
+                    throw new NotImplementedException();
+                default:
+                    throw new MethodNotAllowedException($"Order action {orderAction} is not allowed.");
+            }
 
-            return paymentId;
+            return orderActionResponse;
         }
 
         public async Task DeleteSeatAsync(Guid orderId, Guid activitySeatId, CancellationToken cancellationToken = default)
@@ -128,6 +130,46 @@ namespace Modules.Orders.Core.Services
             }
 
             await _repository.SaveChangesAsync(cancellationToken);
+        }
+
+        private async Task<OrderActionResult> SubmitOrderAsync(Guid orderId, CancellationToken cancellationToken = default)
+        {
+            var order = await GetOrderWithItemsAsync(orderId);
+
+            var seatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList();
+            await BookSeatsAsync(seatIds, cancellationToken);
+
+            var paymentId = await CreatePaymentAsync(order.Id, order.Amount, cancellationToken);
+
+            order.Status = OrderStatus.InProgress;
+            await _repository.SaveChangesAsync(cancellationToken);
+
+            var orderActionResponse = new OrderActionResult
+            {
+                PaymentId = paymentId,
+                OrderStatus = OrderStatus.InProgress
+            };
+
+            return orderActionResponse;
+        }
+
+        private async Task BookSeatsAsync(IList<Guid> seatId, CancellationToken cancellationToken = default)
+        {
+            await _mediator.Send(new SeatBookRequest
+            {
+                SeatIds = seatId
+            }, cancellationToken);
+        }
+
+        private async Task<Guid> CreatePaymentAsync(Guid orderId, double amount, CancellationToken cancellationToken = default)
+        {
+            var paymentId = await _mediator.Send(new PaymentNewRequest
+            {
+                OrderId = orderId,
+                Amount = amount
+            }, cancellationToken);
+
+            return paymentId;
         }
 
         private async Task<Order> GetOrderWithItemsAsync(Guid orderId)

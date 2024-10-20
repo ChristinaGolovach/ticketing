@@ -1,4 +1,4 @@
-﻿namespace Modules.Orders.Core.Models
+﻿namespace Modules.Orders.Core.Models.Dtos
 {
     public class ViewOrderItemDto
     {

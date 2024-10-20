@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Modules.Orders.Core.Models;
+using Modules.Orders.Core.Models.Dtos;
 using Modules.Orders.Core.Services;
 
 namespace Modules.Orders.Api.Controllers
@@ -51,16 +52,17 @@ namespace Modules.Orders.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{orderId}/book")]
+        [HttpPut("{orderId}/action")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> BookSeatsAsync(Guid orderId, CancellationToken cancellationToken = default)
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public async Task<IActionResult> ApplyActionAsync(Guid orderId, OrderAction action, CancellationToken cancellationToken = default)
         {
             if (orderId == Guid.Empty)
             {
                 return BadRequest();
             }
-            var result = await _orderService.BookSeatsAsync(orderId, cancellationToken);
+            var result = await _orderService.ApplyActionAsync(orderId, action, cancellationToken);
 
             return Ok(result);
         }
