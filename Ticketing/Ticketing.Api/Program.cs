@@ -1,19 +1,19 @@
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
-using Modules.Events.Data;
-using Modules.Orders.Data;
-using Modules.Orders.ModuleApi;
-using Modules.Payments.Data;
-using Modules.Payments.Api;
-using Modules.Payments.ModuleApi;
-using Modules.Users.Data;
+
 using Modules.Events.Api;
+using Modules.Events.Infrastructure;
 using Modules.Events.ModuleApi;
 using Modules.Orders.Api;
+using Modules.Orders.Infrastructure;
+using Modules.Orders.ModuleApi;
+using Modules.Payments.Api;
+using Modules.Payments.Infrastructure;
+using Modules.Payments.ModuleApi;
+using Modules.Users.Data;
 using Ticketing.Api.Filters;
+using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging;
-using Ticketing.Shared.Data.Repository;
-
 
 namespace Ticketing.Api
 {
@@ -24,9 +24,9 @@ namespace Ticketing.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddEventsData(builder.Configuration);
-            builder.Services.AddOrdersData(builder.Configuration);
-            builder.Services.AddPaymentsData(builder.Configuration);
+            builder.Services.AddEventsInfrastructure(builder.Configuration);
+            builder.Services.AddOrdersInfrastructure(builder.Configuration);
+            builder.Services.AddPaymentsInfrastructure(builder.Configuration);
             builder.Services.AddUsersData(builder.Configuration);
 
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Modules.Users.Data.Entities;
-using Ticketing.Shared.Data;
+using Ticketing.Shared.Infrastructure.Data;
 using static Modules.Users.Data.UsersDBConstants;
 
 

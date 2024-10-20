@@ -4,10 +4,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Modules.Orders.Core.Models;
 using Modules.Orders.Core.Models.Dtos;
-using Modules.Orders.Data;
 using Modules.Orders.Data.Entities;
+using Modules.Orders.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
-using Ticketing.Shared.Data.Repository;
+using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
 
 namespace Modules.Orders.Core.Services

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
 using Modules.Payments.Core.Models;
-using Modules.Payments.Data;
 using Modules.Payments.Data.Entities;
+using Modules.Payments.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
-using Ticketing.Shared.Data.Repository;
+using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
 
 namespace Modules.Payments.Core.Services

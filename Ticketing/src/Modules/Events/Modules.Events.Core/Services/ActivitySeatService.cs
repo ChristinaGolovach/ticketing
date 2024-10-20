@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Modules.Events.Data;
 using Modules.Events.Data.Entities;
-using Ticketing.Shared.Data.Repository;
+using Modules.Events.Infrastructure.Data;
+using Ticketing.Shared.Infrastructure.Data;
 
 namespace Modules.Events.Core.Services
 {

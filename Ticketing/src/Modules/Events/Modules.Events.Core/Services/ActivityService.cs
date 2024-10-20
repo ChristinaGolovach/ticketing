@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Modules.Events.Core.Models;
-using Modules.Events.Data;
 using Modules.Events.Data.Entities;
+using Modules.Events.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
-using Ticketing.Shared.Data.Repository;
+using Ticketing.Shared.Infrastructure.Data;
 
 namespace Modules.Events.Core.Services
 {

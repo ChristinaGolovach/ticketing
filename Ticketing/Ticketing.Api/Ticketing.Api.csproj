@@ -12,13 +12,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Modules\Events\Modules.Events.Api\Modules.Events.Api.csproj" />
-    <ProjectReference Include="..\src\Modules\Events\Modules.Events.Data\Modules.Events.Data.csproj" />
+    <ProjectReference Include="..\src\Modules\Events\Modules.Events.Infrastructure\Modules.Events.Infrastructure.csproj" />
     <ProjectReference Include="..\src\Modules\Events\Modules.Events.ModuleApi\Modules.Events.ModuleApi.csproj" />
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.Api\Modules.Orders.Api.csproj" />
-    <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.Data\Modules.Orders.Data.csproj" />
+    <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.Infrastructure\Modules.Orders.Infrastructure.csproj" />
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.ModuleApi\Modules.Orders.ModuleApi.csproj" />
     <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.Api\Modules.Payments.Api.csproj" />
-    <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.Data\Modules.Payments.Data.csproj" />
+    <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.Infrastructure\Modules.Payments.Infrastructure.csproj" />
     <ProjectReference Include="..\src\Modules\Payments\Modules.Payments.ModuleApi\Modules.Payments.ModuleApi.csproj" />
     <ProjectReference Include="..\src\Modules\Users\Modules.Users.Data\Modules.Users.Data.csproj" />
     <ProjectReference Include="..\src\Shared\Ticketing.Shared.Core\Ticketing.Shared.Core.csproj" />

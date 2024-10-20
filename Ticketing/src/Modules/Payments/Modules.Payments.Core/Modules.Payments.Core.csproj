@@ -13,8 +13,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Core\Ticketing.Shared.Core.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Infrastructure\Ticketing.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Messaging\Ticketing.Shared.Messaging.csproj" />
     <ProjectReference Include="..\Modules.Payments.Data\Modules.Payments.Data.csproj" />
+    <ProjectReference Include="..\Modules.Payments.Infrastructure\Modules.Payments.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

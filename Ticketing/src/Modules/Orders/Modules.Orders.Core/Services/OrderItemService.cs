@@ -1,8 +1,8 @@
 ﻿using Modules.Orders.Data.Entities;
-using Modules.Orders.Data;
-using Ticketing.Shared.Data.Repository;
+using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
 using Modules.Orders.Core.Models.Dtos;
+using Modules.Orders.Infrastructure.Data;
 
 namespace Modules.Orders.Core.Services
 {

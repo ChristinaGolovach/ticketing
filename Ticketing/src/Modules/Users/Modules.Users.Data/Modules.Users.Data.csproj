@@ -13,6 +13,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
     <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Data\Ticketing.Shared.Data.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Infrastructure\Ticketing.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

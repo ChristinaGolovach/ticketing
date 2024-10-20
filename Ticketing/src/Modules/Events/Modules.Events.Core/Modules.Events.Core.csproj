@@ -12,7 +12,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Core\Ticketing.Shared.Core.csproj" />
     <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Data\Ticketing.Shared.Data.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Infrastructure\Ticketing.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules.Events.Data\Modules.Events.Data.csproj" />
+    <ProjectReference Include="..\Modules.Events.Infrastructure\Modules.Events.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

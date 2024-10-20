@@ -12,7 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Messaging\Ticketing.Shared.Messaging.csproj" />
     <ProjectReference Include="..\Modules.Orders.Core\Modules.Orders.Core.csproj" />
-    <ProjectReference Include="..\Modules.Orders.Data\Modules.Orders.Data.csproj" />
   </ItemGroup>
 
 </Project>
