@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Messaging\Ticketing.Shared.Messaging.csproj" />
+    <ProjectReference Include="..\Modules.Events.Core\Modules.Events.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Ticketing.Shared.Messaging\Ticketing.Shared.Messaging.csproj" />
+    <ProjectReference Include="..\Modules.Orders.Core\Modules.Orders.Core.csproj" />
+  </ItemGroup>
 
 </Project>
