@@ -65,7 +65,6 @@ namespace Modules.Payments.Core.Services
             cancellationToken);
 
             await _repository.SaveChangesAsync(cancellationToken);
-
         }
 
         public async Task FailedPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)

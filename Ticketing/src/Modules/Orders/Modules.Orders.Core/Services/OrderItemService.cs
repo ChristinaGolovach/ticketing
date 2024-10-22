@@ -1,8 +1,9 @@
-﻿using Modules.Orders.Data.Entities;
-using Ticketing.Shared.Infrastructure.Data;
-using Ticketing.Shared.Core.Exceptions;
+﻿using Microsoft.EntityFrameworkCore;
 using Modules.Orders.Core.Models.Dtos;
+using Modules.Orders.Data.Entities;
 using Modules.Orders.Infrastructure.Data;
+using Ticketing.Shared.Core.Exceptions;
+using Ticketing.Shared.Infrastructure.Data;
 
 namespace Modules.Orders.Core.Services
 {
@@ -30,7 +31,9 @@ namespace Modules.Orders.Core.Services
 
         public async Task DeleteOrderItemAsync(Guid activitySeatId, CancellationToken cancellationToken = default)
         {
-            var orderItem = await _repository.GetByIdAsync(activitySeatId, cancellationToken);
+            var orderItem = await _repository.Query()
+                .Where(item => item.ActivitySeatId == activitySeatId)
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (orderItem == null || orderItem.Deleted) 
             {
