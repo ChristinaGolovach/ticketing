@@ -14,7 +14,7 @@ namespace Modules.Events.Core.Services
             _repository = repository;
         }
 
-        public async Task UpdateActivitySeatStateAsync(IList<Guid> activitySeatIds, SeatState state, CancellationToken cancellationToken)
+        public async Task UpdateActivitySeatStateAsync(IList<Guid> activitySeatIds, SeatState state, CancellationToken cancellationToken= default)
         {
             await _repository.Query()
                  .Where(activitySeat => activitySeatIds.Contains(activitySeat.Id))
