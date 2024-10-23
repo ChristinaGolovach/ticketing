@@ -8,6 +8,7 @@ using Modules.Orders.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
 using Ticketing.Shared.Infrastructure.Data;
 using Modules.Orders.Core.Models.Dtos;
+using Modules.Orders.Core.UnitTest.FakeData;
 
 namespace Modules.Orders.Core.UnitTest
 {
@@ -18,11 +19,10 @@ namespace Modules.Orders.Core.UnitTest
 
         public OrderItemServiceTests()
         {
-            _orderItems = CreateFakeOrderItems();
+            _orderItems = FakeOrderItems.CreateFakeOrderItems();
             _repositoryMock = new Mock<IRepository<OrderItem, OrdersDBContext>>();
             _repositoryMock.Setup(r => r.Query()).Returns(_orderItems.BuildMock());
         }
-
 
         [Theory]
         [InlineData("87b6b120-63c0-4e8e-93f8-d827be176a5e", "1983322c-c029-43c1-96af-b22d2da95dca", 23.5)]
@@ -102,39 +102,6 @@ namespace Modules.Orders.Core.UnitTest
 
             // Act - Assert
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.DeleteOrderItemAsync(activitySeatId));
-        }
-
-        private IQueryable<OrderItem> CreateFakeOrderItems()
-        {
-            var orderItems = new List<OrderItem>()
-            {
-                new OrderItem
-                {
-                    Id = new Guid("cc99afbd-c379-4ba0-910b-3c4849192a5c"),
-                    ActivitySeatId = new Guid("8cb145fc-42fd-4aad-82b9-f8a8c8e3bdab"),
-                    Deleted = false
-                },
-                new OrderItem
-                {
-                    Id = new Guid("cf970046-3124-4e9b-83c6-002b24d8eea4"),
-                    ActivitySeatId = new Guid("bae97295-a71a-45fa-a3ce-554fdeeb0475"),
-                    Deleted = false
-                },
-                new OrderItem
-                {
-                    Id = new Guid("d7018d7a-3ce3-4083-aabe-e610f21a1e0d"),
-                    ActivitySeatId = new Guid("da18b8db-0fbb-42b9-9197-b0db28f740f9"),
-                    Deleted = true
-                },
-                new OrderItem
-                {
-                    Id = new Guid("9f6b9d51-8c70-4294-932a-b3919e2cce7d"),
-                    ActivitySeatId = new Guid("1c32d74f-d1fa-4870-ae4e-fefcf00926c7"),
-                    Deleted = true
-                }
-            }.AsQueryable();
-
-            return orderItems;
         }
     }
 }

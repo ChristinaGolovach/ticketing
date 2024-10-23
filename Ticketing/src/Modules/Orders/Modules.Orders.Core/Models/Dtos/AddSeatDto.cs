@@ -6,4 +6,6 @@
         public Guid ActivityId { get; set; }
         public double Amount { get; set; }
     }
+
+    // TODO: fluentvalidation add.
 }
