@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.10" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Modules\Events\Modules.Events.Core\Modules.Events.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Events\Modules.Events.Data\Modules.Events.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Events\Modules.Events.Infrastructure\Modules.Events.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Events\Modules.Events.ModuleApi\Modules.Events.ModuleApi.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Orders\Modules.Orders.Core\Modules.Orders.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Orders\Modules.Orders.Data\Modules.Orders.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Orders\Modules.Orders.Infrastructure\Modules.Orders.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Orders\Modules.Orders.ModuleApi\Modules.Orders.ModuleApi.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Payments\Modules.Payments.Core\Modules.Payments.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Payments\Modules.Payments.Data\Modules.Payments.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Payments\Modules.Payments.Infrastructure\Modules.Payments.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\src\Modules\Payments\Modules.Payments.ModuleApi\Modules.Payments.ModuleApi.csproj" />
+    <ProjectReference Include="..\..\..\src\Shared\Ticketing.Shared.Core\Ticketing.Shared.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Shared\Ticketing.Shared.Data\Ticketing.Shared.Data.csproj" />
+    <ProjectReference Include="..\..\..\src\Shared\Ticketing.Shared.Infrastructure\Ticketing.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Ticketing.Api\Ticketing.Api.csproj" />
+  </ItemGroup>
+
+</Project>

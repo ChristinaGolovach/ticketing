@@ -26,12 +26,7 @@ namespace Modules.Payments.Core.Services
 
         public async Task<ViewPaymentDto> GetPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
         {
-            var payment = await _repository.GetByIdAsync(paymentId, cancellationToken);
-
-            if (payment == null)
-            {
-                throw new ResourceNotFoundException($"Payment {paymentId} is not found.");
-            }
+            var payment = await GetByIdAsync(paymentId, cancellationToken);
 
             var paymentDto = _mapper.Map<ViewPaymentDto>(payment);
 

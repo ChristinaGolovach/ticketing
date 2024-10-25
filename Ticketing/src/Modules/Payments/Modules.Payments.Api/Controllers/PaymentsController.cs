@@ -29,7 +29,7 @@ namespace Modules.Payments.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPost("{paymentId}/complete")]
+        [HttpPut("{paymentId}/complete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CompletePaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)
@@ -43,7 +43,7 @@ namespace Modules.Payments.Api.Controllers
             return NoContent();
         }
 
-        [HttpPost("{paymentId}/failed")]
+        [HttpPut("{paymentId}/failed")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> FailedPaymentAsync(Guid paymentId, CancellationToken cancellationToken = default)

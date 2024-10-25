@@ -1,17 +1,15 @@
-﻿using MockQueryable;
+﻿using AutoMapper;
+using MockQueryable;
 using Moq;
+using Xunit;
 
+using Modules.Events.Core.Models;
+using Modules.Events.Core.Services;
 using Modules.Events.Core.UnitTest.FakeData;
 using Modules.Events.Data.Entities;
 using Modules.Events.Infrastructure.Data;
-using Ticketing.Shared.Infrastructure.Data;
-using Xunit;
-using Modules.Events.Core.Services;
-using AutoMapper;
-using Modules.Events.Core.Models;
-using System.Collections.Generic;
 using Ticketing.Shared.Core.Exceptions;
-using Microsoft.EntityFrameworkCore;
+using Ticketing.Shared.Infrastructure.Data;
 
 namespace Modules.Events.Core.UnitTest
 {
