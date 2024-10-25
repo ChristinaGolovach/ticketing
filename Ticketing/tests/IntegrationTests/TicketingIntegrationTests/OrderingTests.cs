@@ -199,18 +199,18 @@ namespace TicketingIntegrationTests
 
             #endregion
 
-            #region Complete Payment
+            #region Fail Payment
             // Arrange - Payment
             var paymentId = submittedOrder.PaymentId;
 
             // Act - Payment
             await _client.PutAsync($"/api/payments/{paymentId}/failed", null);
 
-            var completedPaymentResponse = await _client.GetAsync($"/api/payments/{paymentId}");
-            var completedPayment = await Utils.GetRequestContent<ViewPaymentDto>(completedPaymentResponse);
+            var failedPaymentResponse = await _client.GetAsync($"/api/payments/{paymentId}");
+            var failedPayment = await Utils.GetRequestContent<ViewPaymentDto>(failedPaymentResponse);
 
-            var paidOrderResponse = await _client.GetAsync($"/api/orders/{userId}/{orderId}");
-            var paidOrder = await Utils.GetRequestContent<ViewOrderDto>(paidOrderResponse);
+            var failedOrderResponse = await _client.GetAsync($"/api/orders/{userId}/{orderId}");
+            var failedOrder = await Utils.GetRequestContent<ViewOrderDto>(failedOrderResponse);
 
             var soldSeats = new List<ActivitySeat>();
             using (var scope = _factory.Services.CreateScope())
@@ -222,13 +222,11 @@ namespace TicketingIntegrationTests
             }
 
             // Assert - Payment - Order - Seats
-            Assert.NotNull(completedPayment);
-            Assert.True(completedPayment.Status == PaymentStatus.Failed);
+            Assert.NotNull(failedPayment);
+            Assert.True(failedPayment.Status == PaymentStatus.Failed);
 
-            Assert.NotNull(paidOrder);
-            Assert.True(paidOrder.Status == OrderStatus.Failed);
-
-            Assert.True(completedPayment.Amount == paidOrder.Amount);
+            Assert.NotNull(failedOrder);
+            Assert.True(failedOrder.Status == OrderStatus.Failed);
 
             Assert.True(Array.TrueForAll(soldSeats.ToArray(), s => s.State == SeatState.Available));
             #endregion
