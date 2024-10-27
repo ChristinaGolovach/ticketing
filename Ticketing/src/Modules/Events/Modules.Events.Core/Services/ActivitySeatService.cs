@@ -14,14 +14,22 @@ namespace Modules.Events.Core.Services
             _repository = repository;
         }
 
-        public async Task UpdateActivitySeatStateAsync(IList<Guid> activitySeatIds, SeatState state, CancellationToken cancellationToken)
+        public async Task UpdateActivitySeatStateAsync(IList<Guid> activitySeatIds, SeatState state, CancellationToken cancellationToken= default)
         {
-            await _repository.Query()
-                 .Where(activitySeat => activitySeatIds.Contains(activitySeat.Id))
-                 .ExecuteUpdateAsync(activitySeat =>
-                     activitySeat.SetProperty(a => a.State, a => state),
-                     cancellationToken
-                 );;
+            var activitySeats = await _repository.Query()
+                 .Where(activitySeat => activitySeatIds.Contains(activitySeat.Id)).ToListAsync();
+
+            activitySeats.ForEach(a => a.State = state);
+
+            await _repository.SaveChangesAsync(cancellationToken);
+
+            //TODO: Investigate why it doesn't work now
+            //await _repository.Query()
+            //     .Where(activitySeat => activitySeatIds.Contains(activitySeat.Id))
+            //     .ExecuteUpdateAsync(activitySeat =>
+            //         activitySeat.SetProperty(a => a.State, a => state),
+            //         cancellationToken
+            //     );
         }
     }
 }

@@ -36,16 +36,11 @@ namespace Modules.Orders.Core.Services
             var order = await _repository.Query()
                 .AsNoTracking()
                 .Include(order => order.OrderItems)
-                .SingleOrDefaultAsync(order => order.Id == orderId);
+                .SingleOrDefaultAsync(order => order.Id == orderId && order.UserId == userId);
 
             if (order == null) 
             {
-                throw new ResourceNotFoundException($"Order {orderId} is not found.");
-            }
-
-            if (order.UserId != userId)
-            {
-                throw new ResourceNotFoundException($"User {userId} is not found.");
+                throw new ResourceNotFoundException($"Order {orderId} for user {userId} is not found.");
             }
 
             var viewOrder = _mapper.Map<ViewOrderDto>(order);
@@ -106,9 +101,6 @@ namespace Modules.Orders.Core.Services
         {
             var order = await GetOrderWithItemsAsync(orderId);
 
-            order.Status = status;
-            _repository.Update(order);
-
             switch (status)
             {
                 case OrderStatus.Failed:
@@ -129,6 +121,9 @@ namespace Modules.Orders.Core.Services
                     break;
             }
 
+            order.Status = status;
+            _repository.Update(order);
+
             await _repository.SaveChangesAsync(cancellationToken);
         }
 
@@ -146,18 +141,19 @@ namespace Modules.Orders.Core.Services
 
             var orderActionResponse = new OrderActionResult
             {
+                OrderId = orderId,
                 PaymentId = paymentId,
-                OrderStatus = OrderStatus.InProgress
+                OrderStatus = order.Status
             };
 
             return orderActionResponse;
         }
 
-        private async Task BookSeatsAsync(IList<Guid> seatId, CancellationToken cancellationToken = default)
+        private async Task BookSeatsAsync(IList<Guid> seatIds, CancellationToken cancellationToken = default)
         {
             await _mediator.Send(new SeatBookRequest
             {
-                SeatIds = seatId
+                SeatIds = seatIds
             }, cancellationToken);
         }
 

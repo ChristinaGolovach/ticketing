@@ -56,7 +56,7 @@ namespace Modules.Orders.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public async Task<IActionResult> ApplyActionAsync(Guid orderId, OrderAction action, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> ApplyActionAsync(Guid orderId, [FromBody] OrderAction action, CancellationToken cancellationToken = default)
         {
             if (orderId == Guid.Empty)
             {
