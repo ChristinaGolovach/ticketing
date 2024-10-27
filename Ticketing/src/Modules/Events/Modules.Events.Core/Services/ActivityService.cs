@@ -4,6 +4,7 @@ using Modules.Events.Core.Models;
 using Modules.Events.Data.Entities;
 using Modules.Events.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
+using Ticketing.Shared.Infrastructure.Cache;
 using Ticketing.Shared.Infrastructure.Data;
 
 namespace Modules.Events.Core.Services
@@ -12,13 +13,16 @@ namespace Modules.Events.Core.Services
     {
         private readonly IRepository<Activity, EventsDBContext> _repository;
         private readonly IMapper _mapper;
+        private readonly ICacheService _cache;
 
         public ActivityService(
             IRepository<Activity, EventsDBContext> repository,
-            IMapper mapper)
+            IMapper mapper,
+            ICacheService cache)
         {
             _repository = repository;
             _mapper = mapper;
+            _cache = cache;
         }
 
         public async Task<IList<ViewActivityDto>> GetActivitiesAsync(CancellationToken cancellationToken = default)
@@ -31,8 +35,7 @@ namespace Modules.Events.Core.Services
 
         public async Task<IList<ViewActivitySeatDto>> GetSeatsAsync(Guid activityId, Guid sectionId, CancellationToken cancellationToken = default)
         {
-            var activity = await _repository.GetByIdAsync(activityId, cancellationToken);
-
+            Activity activity = await GetActivityAsync(activityId, cancellationToken);
             if (activity == null)
             {
                 throw new ResourceNotFoundException($"Activity {activityId} is not found.");
@@ -58,6 +61,24 @@ namespace Modules.Events.Core.Services
                 .ToListAsync(cancellationToken);
 
             return seats;
+        }
+
+        private async Task<Activity> GetActivityAsync(Guid activityId,  CancellationToken cancellationToken = default)
+        {
+            Activity activity = null;
+            var cachedActivity = await _cache.GetAsync<Activity>(activityId.ToString(), cancellationToken);
+
+            if (cachedActivity != null)
+            {
+                activity = cachedActivity;
+            }
+            else
+            {
+                activity = await _repository.GetByIdAsync(activityId, cancellationToken);
+                await _cache.SetAsync(activityId.ToString(), activity);
+            }
+
+            return activity;
         }
     }
 }

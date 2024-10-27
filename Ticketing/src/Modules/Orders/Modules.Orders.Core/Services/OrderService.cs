@@ -7,6 +7,7 @@ using Modules.Orders.Core.Models.Dtos;
 using Modules.Orders.Data.Entities;
 using Modules.Orders.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
+using Ticketing.Shared.Infrastructure.Cache;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
 
@@ -18,17 +19,20 @@ namespace Modules.Orders.Core.Services
         private readonly IOrderItemService _orderItemService;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly ICacheService _cache;
 
 
         public OrderService(IRepository<Order, OrdersDBContext> repository,
             IOrderItemService orderItemService,
             IMediator mediator,
-            IMapper mapper)
+            IMapper mapper,
+            ICacheService cache)
         {
             _repository = repository;
             _orderItemService = orderItemService;
             _mediator = mediator;
             _mapper = mapper;
+            _cache = cache;
         }
 
         public async Task<ViewOrderDto> GetOrderAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
@@ -61,6 +65,8 @@ namespace Modules.Orders.Core.Services
 
             order.Amount += seat.Amount;
             await _repository.SaveChangesAsync(cancellationToken);
+
+            await _cache.RemoveAsync(order.ActivityId.ToString(), cancellationToken);
 
             var viewOrder = _mapper.Map<ViewOrderDto>(order);
 
@@ -130,6 +136,8 @@ namespace Modules.Orders.Core.Services
         private async Task<OrderActionResult> SubmitOrderAsync(Guid orderId, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
+
+            await _cache.RemoveAsync(order.ActivityId.ToString(), cancellationToken);
 
             var seatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList();
             await BookSeatsAsync(seatIds, cancellationToken);

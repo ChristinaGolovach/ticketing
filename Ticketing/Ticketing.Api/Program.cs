@@ -12,6 +12,7 @@ using Modules.Payments.Infrastructure;
 using Modules.Payments.ModuleApi;
 using Modules.Users.Data;
 using Ticketing.Api.Filters;
+using Ticketing.Shared.Infrastructure;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging;
 
@@ -27,6 +28,7 @@ namespace Ticketing.Api
             builder.Services.AddEventsInfrastructure(builder.Configuration);
             builder.Services.AddOrdersInfrastructure(builder.Configuration);
             builder.Services.AddPaymentsInfrastructure(builder.Configuration);
+            builder.Services.AddSharedInfrastructure(builder.Configuration);
             builder.Services.AddUsersData(builder.Configuration);
 
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
@@ -70,8 +72,9 @@ namespace Ticketing.Api
                 c.RoutePrefix = string.Empty;
             });
 
-            app.MapControllers();
+            app.UseResponseCaching();
 
+            app.MapControllers();
 
             app.Run();
         }

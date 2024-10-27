@@ -10,6 +10,7 @@ using Modules.Events.Data.Entities;
 using Modules.Events.Infrastructure.Data;
 using Ticketing.Shared.Core.Exceptions;
 using Ticketing.Shared.Infrastructure.Data;
+using Ticketing.Shared.Infrastructure.Cache;
 
 namespace Modules.Events.Core.UnitTest
 {
@@ -18,12 +19,14 @@ namespace Modules.Events.Core.UnitTest
         private readonly Mock<IRepository<Activity, EventsDBContext>> _repositoryMock;
         private readonly IQueryable<Activity> _activities;
         private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<ICacheService> _cacheMock;
 
         public ActivityServiceTests()
         {
             _activities = FakeActivities.CreateFakeActivities();
             _repositoryMock = new Mock<IRepository<Activity, EventsDBContext>>();
             _mapperMock = new Mock<IMapper>();
+            _cacheMock = new Mock<ICacheService>();
 
             ConfigureMocks();
         }
@@ -32,7 +35,7 @@ namespace Modules.Events.Core.UnitTest
         public async Task GetActivities_Should_ReturnAllActivities()
         {
             // Arrange
-            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object);
+            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object, _cacheMock.Object);
 
             // Act
             var actualResult = await sut.GetActivitiesAsync();
@@ -46,7 +49,7 @@ namespace Modules.Events.Core.UnitTest
         public async Task GetActivities_Should_ReturnActivitiesAsDto()
         {
             // Arrange
-            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object);
+            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object, _cacheMock.Object);
 
             // Act
             var actualResult = await sut.GetActivitiesAsync();
@@ -64,7 +67,7 @@ namespace Modules.Events.Core.UnitTest
             // Arrange
             var activityId = new Guid(activityGuidId);
             var sectionId = new Guid(sectionGuidId);
-            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object);
+            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object, _cacheMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.GetSeatsAsync(activityId, sectionId));
@@ -77,7 +80,7 @@ namespace Modules.Events.Core.UnitTest
             // Arrange
             var activityId = new Guid(activityGuidId);
             var sectionId = new Guid(sectionGuidId);
-            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object);
+            var sut = new ActivityService(_repositoryMock.Object, _mapperMock.Object, _cacheMock.Object);
 
             var expectedResult = _activities.Where(activity => activity.Id == activityId)
                 .SelectMany(activity => activity.ActivitySeats)
