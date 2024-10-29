@@ -16,7 +16,6 @@ namespace Modules.Events.Api.Controllers
         }
 
         [HttpGet]
-        //[SwaggerOperation("Get all venues.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IList<ViewVenueDto>>> GetVenuesAsync(CancellationToken cancellationToken = default)
         {
@@ -26,7 +25,6 @@ namespace Modules.Events.Api.Controllers
         }
 
         [HttpGet("{venueId}/sections")]
-        //[SwaggerOperation("Get all sections for a venue.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

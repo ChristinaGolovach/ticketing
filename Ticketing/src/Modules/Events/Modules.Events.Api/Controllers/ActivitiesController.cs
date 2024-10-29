@@ -16,6 +16,7 @@ namespace Modules.Events.Api.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetActivitiesAsync(CancellationToken cancellationToken = default)
         {
             var result = await _activityService.GetActivitiesAsync(cancellationToken);
@@ -23,6 +24,7 @@ namespace Modules.Events.Api.Controllers
         }
 
         [HttpGet("{activityId}/sections/{sectionId}/seats")]
+        [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

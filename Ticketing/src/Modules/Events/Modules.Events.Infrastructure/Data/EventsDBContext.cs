@@ -95,8 +95,8 @@ namespace Modules.Events.Infrastructure.Data
         private void SeedActivity(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Activity>().HasData(
-                new Activity { Id = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), Name = "Ram", VenueId = new Guid("c82171f1-aa5f-4434-b0cd-90a8bedeb4af") },
-                new Activity { Id = new Guid("7933E0D3-4905-4D2C-B9A1-C20EAD197883"), Name = "Circus", VenueId = new Guid("ef0716cb-54d8-4ddb-8d25-b2a8cb61f026") });
+                new Activity { Id = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), Name = "Ram", Date = DateTime.UtcNow, VenueId = new Guid("c82171f1-aa5f-4434-b0cd-90a8bedeb4af") },
+                new Activity { Id = new Guid("7933E0D3-4905-4D2C-B9A1-C20EAD197883"), Name = "Circus", Date = DateTime.UtcNow, VenueId = new Guid("ef0716cb-54d8-4ddb-8d25-b2a8cb61f026") });
         }
 
         private void SeedActivityOffer(ModelBuilder modelBuilder)
