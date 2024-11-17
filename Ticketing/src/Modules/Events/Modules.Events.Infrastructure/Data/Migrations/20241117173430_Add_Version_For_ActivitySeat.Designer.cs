@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Modules.Events.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Modules.Events.Infrastructure.Data;
 namespace Modules.Events.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(EventsDBContext))]
-    partial class EventsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241117173430_Add_Version_For_ActivitySeat")]
+    partial class Add_Version_For_ActivitySeat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

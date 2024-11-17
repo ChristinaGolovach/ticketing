@@ -80,7 +80,7 @@ namespace TicketingIntegrationTests.InMemoryDB
         private void SeedActivitySeat(EventsDBContext context)
         {
             context.ActivitySeats.AddRange(
-                new ActivitySeat { Id = new Guid("28eeaa98-3068-4a7a-8b6e-4457d81d5312"), SeatId = new Guid("9553dfdd-34cf-4a1b-a9fd-98f6c282fe46"), ActivityId = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), State = SeatState.Available },
+                new ActivitySeat { Id = new Guid("28eeaa98-3068-4a7a-8b6e-4457d81d5312"), SeatId = new Guid("9553dfdd-34cf-4a1b-a9fd-98f6c282fe46"), ActivityId = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), State = SeatState.Available, Version = GenerateMockVersion() },
                 new ActivitySeat { Id = new Guid("d4016119-36b7-459a-a79f-534f5d69efb3"), SeatId = new Guid("38862315-7946-499c-a4e8-1dae5221a6fd"), ActivityId = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), State = SeatState.Available },
                 new ActivitySeat { Id = new Guid("433cf7f1-ca84-46fe-9eed-d33124b84acd"), SeatId = new Guid("f0b63081-812f-4901-8016-422ef2437cc9"), ActivityId = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), State = SeatState.Available },
                 new ActivitySeat { Id = new Guid("194b2efc-02c8-45ab-a375-408e65f30c4a"), SeatId = new Guid("f137e8cc-b2ba-48ce-9573-53c9559f006f"), ActivityId = new Guid("8B5FA894-DFCF-4BB4-A605-5F99985C3805"), State = SeatState.Available },
@@ -99,6 +99,13 @@ namespace TicketingIntegrationTests.InMemoryDB
                 new ActivitySeatOffer { Id = new Guid("6a1adaa4-3cd9-417f-ae02-53a5f2887e81"), ActivitySeatId = new Guid("c85d23cd-61e9-476b-b177-f64ed29dc0d5"), ActivityOfferId = new Guid("53e2569d-3ea4-4b47-9480-46952765c0c9") },
                 new ActivitySeatOffer { Id = new Guid("6a2ed8c8-61c3-4de7-a840-6e79011f481c"), ActivitySeatId = new Guid("5928bf55-e20a-418c-9835-d94dba6fb95d"), ActivityOfferId = new Guid("440f0129-8982-4c77-97e9-76cd3efa67d0") },
                 new ActivitySeatOffer { Id = new Guid("2b6de77f-4970-42e8-b8e6-e1335e870da7"), ActivitySeatId = new Guid("69971097-4471-4175-ac39-e6d5f5dbfc07"), ActivityOfferId = new Guid("440f0129-8982-4c77-97e9-76cd3efa67d0") });
+        }
+
+        private byte[] GenerateMockVersion()
+        {
+            long counter = 1;
+            var version = BitConverter.GetBytes(System.Threading.Interlocked.Increment(ref counter));
+            return version;
         }
     }
 }

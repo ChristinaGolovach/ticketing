@@ -17,24 +17,24 @@ namespace TicketingIntegrationTests.Configuration
         {
             builder.ConfigureTestServices(services =>
             {
-                services.ReplaceDbContext<EventsDBContext>(
-                options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDB");
-                });
-                services.ReplaceDbContext<OrdersDBContext>(
-                options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDB");
-                });
-                services.ReplaceDbContext<PaymentsDBContext>(
-                options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDB");
-                });
+                //services.ReplaceDbContext<EventsDBContext>(
+                //options =>
+                //{
+                //    options.UseInMemoryDatabase("InMemoryDB");
+                //});
+                //services.ReplaceDbContext<OrdersDBContext>(
+                //options =>
+                //{
+                //    options.UseInMemoryDatabase("InMemoryDB");
+                //});
+                //services.ReplaceDbContext<PaymentsDBContext>(
+                //options =>
+                //{
+                //    options.UseInMemoryDatabase("InMemoryDB");
+                //});
 
                 var sp = services.BuildServiceProvider(validateScopes: true);
-                new DBSeeder().SeedDatabase(sp);
+                //new DBSeeder().SeedDatabase(sp);
             });
         }
     }

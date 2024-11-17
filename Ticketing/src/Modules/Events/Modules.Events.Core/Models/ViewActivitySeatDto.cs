@@ -13,5 +13,6 @@ namespace Modules.Events.Core.Models
         public int PriceTypeId { get; set; }
         public PriceType PriceType { get; set; }
         public double Amount { get; set; }
+        public byte[] Version { get; set; }
     }
 }

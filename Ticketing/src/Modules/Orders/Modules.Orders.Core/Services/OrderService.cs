@@ -10,6 +10,7 @@ using Ticketing.Shared.Core.Exceptions;
 using Ticketing.Shared.Infrastructure.Cache;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
+using Ticketing.Shared.Messaging.ResponseModels;
 
 namespace Modules.Orders.Core.Services
 {
@@ -55,7 +56,6 @@ namespace Modules.Orders.Core.Services
         public async Task<ViewOrderDto> AddSeatAsync(Guid orderId, AddSeatDto seat, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
-
             if (order.OrderItems.Any(orderItem => orderItem.ActivitySeatId == seat.ActivitySeatId))
             {
                 throw new ResourceDuplicateException($"Seat {seat.ActivitySeatId} is already added to the order {orderId}.");
@@ -140,7 +140,14 @@ namespace Modules.Orders.Core.Services
             await _cache.RemoveAsync(order.ActivityId.ToString(), cancellationToken);
 
             var seatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList();
-            await BookSeatsAsync(seatIds, cancellationToken);
+            try
+            {
+                await BookSeatsAsync(seatIds, cancellationToken);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw new ResourceUnavailableException($"The order contains unavailable seats.");
+            }
 
             var paymentId = await CreatePaymentAsync(order.Id, order.Amount, cancellationToken);
 
@@ -159,9 +166,16 @@ namespace Modules.Orders.Core.Services
 
         private async Task BookSeatsAsync(IList<Guid> seatIds, CancellationToken cancellationToken = default)
         {
+            var activityState = await _mediator.Send(new SeatStateRequest { ActivitySeatId = seatIds });
+
+            if (activityState.Any(seat => seat.State != SeatState.Available))
+            {
+                throw new ResourceUnavailableException($"The order contains unavailable seats.");
+            }
+
             await _mediator.Send(new SeatBookRequest
             {
-                SeatIds = seatIds
+                SeatIds = activityState.ToDictionary(seat => seat.SeatId, seat => seat.Version)
             }, cancellationToken);
         }
 
