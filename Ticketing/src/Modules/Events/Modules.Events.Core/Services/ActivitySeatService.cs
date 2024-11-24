@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Modules.Events.Core.Models;
 using Modules.Events.Data.Entities;
 using Modules.Events.Infrastructure.Data;
@@ -12,12 +14,15 @@ namespace Modules.Events.Core.Services
     {
         private readonly IRepository<ActivitySeat, EventsDBContext> _repository;
         private readonly IMapper _mapper;
+        private readonly ILogger<ActivitySeatService> _logger;
 
         public ActivitySeatService(IRepository<ActivitySeat, EventsDBContext> repository,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger<ActivitySeatService> logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<ViewActivitySeatDto> GetActivitySeatAsync(Guid activitySeatId, CancellationToken cancellationToken = default)
@@ -70,6 +75,30 @@ namespace Modules.Events.Core.Services
             }
 
             await _repository.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task UpdateActivitySeatStatePessimisticLockAsync(IList<Guid> activitySeatIds, SeatState state, CancellationToken cancellationToken = default)
+        {
+            var parameters = activitySeatIds.Select((id, index) => new SqlParameter($"id{index}", id)).ToArray();
+            string inClause = string.Join(", ", parameters.Select(p => $"'{p.Value}'"));
+            string query = $"SELECT * FROM [Ticketing].[events].[ActivitySeats] WITH (UPDLOCK) WHERE Id IN ({inClause})";
+
+            await _repository.BeginTransactionAsync(cancellationToken);
+            try
+            {
+                var activitySeats = await _repository.FromSqlRawAsync(query, parameters, cancellationToken);
+                activitySeats.ForEach(a => a.State = state);
+
+                await _repository.SaveChangesAsync(cancellationToken);
+                await _repository.CommitTransactionAsync(cancellationToken);
+
+                _logger.LogInformation("Seats were booked", activitySeatIds);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                await _repository.RollbackTransactionAsync(cancellationToken);
+                throw new ResourceUnavailableException($"The seats are not available");
+            }
         }
     }
 }

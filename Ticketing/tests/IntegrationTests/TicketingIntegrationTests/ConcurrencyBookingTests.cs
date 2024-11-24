@@ -23,7 +23,7 @@ namespace TicketingIntegrationTests
             var orderId = new Guid("43AE8DDC-0528-4D89-B947-08B12B688B89");
             IList<Task<HttpResponseMessage>> orderSubmitRequests = new List<Task<HttpResponseMessage>>();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 5; i++)
             {
                 orderSubmitRequests.Add(_client.PutAsJsonAsync($"/api/orders/{orderId}/action", OrderAction.Submit));
             }

@@ -14,5 +14,9 @@ namespace Ticketing.Shared.Infrastructure.Data
         void Update(T entity);
         void Delete(T entity);
         Task SaveChangesAsync(CancellationToken cancellationToken = default);
+        Task<List<T>> FromSqlRawAsync(string sql, IEnumerable<object> parameters, CancellationToken cancellationToken = default);
+        Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+        Task CommitTransactionAsync(CancellationToken cancellationToken = default);
+        Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
     }
 }
