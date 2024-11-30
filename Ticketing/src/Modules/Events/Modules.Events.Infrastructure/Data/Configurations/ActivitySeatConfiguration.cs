@@ -15,6 +15,9 @@ namespace Modules.Events.Infrastructure.Data.Configurations
 
             builder.BaseEntityConfigure();
 
+            builder.Property(entity => entity.Version)
+                .IsRowVersion();
+
             builder.Property(activitySeat => activitySeat.State)
                 .IsRequired()
                 .HasDefaultValue(SeatState.Available);

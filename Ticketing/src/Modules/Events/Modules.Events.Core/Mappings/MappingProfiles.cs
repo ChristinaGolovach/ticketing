@@ -11,6 +11,8 @@ namespace Modules.Events.Core.Mappings
         {
             CreateMap<Venue, ViewVenueDto>();//.ReverseMap();
             CreateMap<Activity, ViewActivityDto>();
+            CreateMap<ActivitySeat, ViewActivitySeatDto>();
+            CreateMap<ViewActivitySeatDto, ActivitySeat>();
         }
     }
 }

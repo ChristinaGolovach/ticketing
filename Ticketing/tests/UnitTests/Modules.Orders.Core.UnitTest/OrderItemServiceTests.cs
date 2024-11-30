@@ -9,6 +9,7 @@ using Ticketing.Shared.Core.Exceptions;
 using Ticketing.Shared.Infrastructure.Data;
 using Modules.Orders.Core.Models.Dtos;
 using Modules.Orders.Core.UnitTest.FakeData;
+using MediatR;
 
 namespace Modules.Orders.Core.UnitTest
 {
@@ -16,11 +17,13 @@ namespace Modules.Orders.Core.UnitTest
     {
         private readonly Mock<IRepository<OrderItem, OrdersDBContext>> _repositoryMock;
         private readonly IQueryable<OrderItem> _orderItems;
+        private readonly Mock<IMediator> _mediatorMock;
 
         public OrderItemServiceTests()
         {
             _orderItems = FakeOrderItems.CreateFakeOrderItems();
             _repositoryMock = new Mock<IRepository<OrderItem, OrdersDBContext>>();
+            _mediatorMock = new Mock<IMediator>();
             _repositoryMock.Setup(r => r.Query()).Returns(_orderItems.BuildMock());
         }
 
@@ -46,7 +49,7 @@ namespace Modules.Orders.Core.UnitTest
                 Amount = amount
             };
 
-            var sut = new OrderItemService(_repositoryMock.Object);
+            var sut = new OrderItemService(_repositoryMock.Object, _mediatorMock.Object);
 
             // Act
             await sut.AddOrderItemAsync(orderId, activitySeat);
@@ -67,7 +70,7 @@ namespace Modules.Orders.Core.UnitTest
         {
             // Arrange
             var activitySeatId = new Guid(activitySeatGuidId);
-            var sut = new OrderItemService(_repositoryMock.Object);
+            var sut = new OrderItemService(_repositoryMock.Object, _mediatorMock.Object);
             var deletedOrderItem = _orderItems.FirstOrDefault(item => item.ActivitySeatId == activitySeatId);
 
             // Act
@@ -85,7 +88,7 @@ namespace Modules.Orders.Core.UnitTest
         {
             // Arrange
             var activitySeatId = new Guid(activitySeatGuidId);
-            var sut = new OrderItemService(_repositoryMock.Object);
+            var sut = new OrderItemService(_repositoryMock.Object, _mediatorMock.Object);
 
             // Act - Assert
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.DeleteOrderItemAsync(activitySeatId));
@@ -98,7 +101,7 @@ namespace Modules.Orders.Core.UnitTest
         {
             // Arrange
             var activitySeatId = new Guid(activitySeatGuidId);
-            var sut = new OrderItemService(_repositoryMock.Object);
+            var sut = new OrderItemService(_repositoryMock.Object, _mediatorMock.Object);
 
             // Act - Assert
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.DeleteOrderItemAsync(activitySeatId));

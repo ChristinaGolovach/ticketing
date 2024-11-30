@@ -2,6 +2,7 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Modules.Orders.Core.Models;
 using Modules.Orders.Core.Models.Dtos;
 using Modules.Orders.Data.Entities;
@@ -10,6 +11,7 @@ using Ticketing.Shared.Core.Exceptions;
 using Ticketing.Shared.Infrastructure.Cache;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
+using Ticketing.Shared.Messaging.ResponseModels;
 
 namespace Modules.Orders.Core.Services
 {
@@ -20,19 +22,22 @@ namespace Modules.Orders.Core.Services
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
+        private readonly ILogger<OrderService> _logger;
 
 
         public OrderService(IRepository<Order, OrdersDBContext> repository,
             IOrderItemService orderItemService,
             IMediator mediator,
             IMapper mapper,
-            ICacheService cache)
+            ICacheService cache,
+            ILogger<OrderService> logger)
         {
             _repository = repository;
             _orderItemService = orderItemService;
             _mediator = mediator;
             _mapper = mapper;
             _cache = cache;
+            _logger = logger;
         }
 
         public async Task<ViewOrderDto> GetOrderAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
@@ -55,7 +60,6 @@ namespace Modules.Orders.Core.Services
         public async Task<ViewOrderDto> AddSeatAsync(Guid orderId, AddSeatDto seat, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
-
             if (order.OrderItems.Any(orderItem => orderItem.ActivitySeatId == seat.ActivitySeatId))
             {
                 throw new ResourceDuplicateException($"Seat {seat.ActivitySeatId} is already added to the order {orderId}.");
@@ -140,7 +144,16 @@ namespace Modules.Orders.Core.Services
             await _cache.RemoveAsync(order.ActivityId.ToString(), cancellationToken);
 
             var seatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList();
-            await BookSeatsAsync(seatIds, cancellationToken);
+            try
+            {
+                //await BookSeatsAsync(seatIds, cancellationToken);
+                await BookSeatsPessimisticLockAsync(seatIds, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Seats were not boked for {orderId} order", seatIds);
+                throw new ResourceUnavailableException($"The order contains unavailable seats.");
+            }
 
             var paymentId = await CreatePaymentAsync(order.Id, order.Amount, cancellationToken);
 
@@ -159,9 +172,31 @@ namespace Modules.Orders.Core.Services
 
         private async Task BookSeatsAsync(IList<Guid> seatIds, CancellationToken cancellationToken = default)
         {
+            var activityState = await _mediator.Send(new SeatStateRequest { ActivitySeatId = seatIds });
+
+            if (activityState.Any(seat => seat.State != SeatState.Available))
+            {
+                throw new ResourceUnavailableException($"The order contains unavailable seats.");
+            }
+
             await _mediator.Send(new SeatBookRequest
             {
-                SeatIds = seatIds
+                SeatIds = activityState.ToDictionary(seat => seat.SeatId, seat => seat.Version)
+            }, cancellationToken);
+        }
+
+        private async Task BookSeatsPessimisticLockAsync(IList<Guid> seatIds, CancellationToken cancellationToken = default)
+        {
+            var activityState = await _mediator.Send(new SeatStateRequest { ActivitySeatId = seatIds });
+
+            if (activityState.Any(seat => seat.State != SeatState.Available))
+            {
+                throw new ResourceUnavailableException($"The order contains unavailable seats.");
+            }
+
+            await _mediator.Send(new SeatBookPessimisticLockRequest
+            {
+                SeatIds = activityState.Select(a => a.SeatId).ToList(),
             }, cancellationToken);
         }
 
