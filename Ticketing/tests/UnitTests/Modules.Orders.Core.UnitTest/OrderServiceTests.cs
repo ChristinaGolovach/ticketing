@@ -15,7 +15,7 @@ using Modules.Orders.Core.Models;
 using Ticketing.Shared.Messaging.Requests;
 using Ticketing.Shared.Infrastructure.Cache;
 using Microsoft.Extensions.Logging;
-using Castle.Core.Logging;
+using Ticketing.Shared.Infrastructure.Bus;
 
 namespace Modules.Orders.Core.UnitTest
 {
@@ -28,6 +28,7 @@ namespace Modules.Orders.Core.UnitTest
         private readonly Mock<ICacheService> _cacheMock;
         private readonly IQueryable<Order> _orders;
         private readonly Mock<ILogger<OrderService>> _logger;
+        private readonly Mock<IBusService> _busServiceMock;
 
 
         public OrderServiceTests()
@@ -40,6 +41,7 @@ namespace Modules.Orders.Core.UnitTest
             _mapperMock = new Mock<IMapper>();
             _cacheMock = new Mock<ICacheService>();
             _logger = new Mock<ILogger<OrderService>>();
+            _busServiceMock = new Mock<IBusService>();
 
             ConfigureMocks();
         }
@@ -58,7 +60,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.GetOrderAsync(userId, orderId));
@@ -78,7 +81,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.GetOrderAsync(userId, orderId));
@@ -98,7 +102,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             var result = await sut.GetOrderAsync(userId, orderId);
@@ -121,7 +126,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.AddSeatAsync(orderId, new AddSeatDto()));
@@ -142,7 +148,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object, 
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceDuplicateException>(() => sut.AddSeatAsync(orderId, activitySeat));
@@ -163,7 +170,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             var order = _orders.First(o => o.Id == orderId);
             var exceptedResult = order.Amount + amount;
@@ -189,7 +197,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             var expectedResult = new Order { Id = orderId, Status = OrderStatus.InProgress };
 
@@ -215,7 +224,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             var actualResponseResult = await sut.ApplyActionAsync(orderId, action);
@@ -237,7 +247,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             var order = _orders.First(o => o.Id == orderId);
 
@@ -262,7 +273,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<MethodNotAllowedException>(() => sut.ApplyActionAsync(orderId, action));
@@ -282,7 +294,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.DeleteSeatAsync(orderId, activitySeatId));
@@ -302,7 +315,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act - Asser
             await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.DeleteSeatAsync(orderId, activitySeatId));
@@ -322,7 +336,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             await sut.UpdateOrderStatusAsync(orderId, status);
@@ -345,7 +360,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             await sut.UpdateOrderStatusAsync(orderId, status);
@@ -367,7 +383,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             await sut.UpdateOrderStatusAsync(orderId, status);
@@ -389,7 +406,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             await sut.UpdateOrderStatusAsync(orderId, status);
@@ -411,7 +429,8 @@ namespace Modules.Orders.Core.UnitTest
                 _mediatorMock.Object,
                 _mapperMock.Object,
                 _cacheMock.Object,
-                _logger.Object);
+                _logger.Object,
+                _busServiceMock.Object);
 
             // Act
             await sut.UpdateOrderStatusAsync(orderId, status);

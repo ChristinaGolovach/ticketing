@@ -7,6 +7,7 @@ using OpenTelemetry.Resources;
 using Modules.Events.Api;
 using Modules.Events.Infrastructure;
 using Modules.Events.ModuleApi;
+using Modules.Notifications.Service;
 using Modules.Orders.Api;
 using Modules.Orders.Infrastructure;
 using Modules.Orders.ModuleApi;
@@ -15,11 +16,10 @@ using Modules.Payments.Infrastructure;
 using Modules.Payments.ModuleApi;
 using Modules.Users.Data;
 using Ticketing.Api.Filters;
+using Ticketing.Api.Logging;
 using Ticketing.Shared.Infrastructure;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging;
-
-using Ticketing.Api.Logging;
 
 namespace Ticketing.Api
 {
@@ -28,6 +28,8 @@ namespace Ticketing.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddOptions();
 
             builder.Logging.ClearProviders()
                 .AddConsole()
@@ -58,6 +60,8 @@ namespace Ticketing.Api
             builder.Services.AddPaymentsInfrastructure(builder.Configuration);
             builder.Services.AddSharedInfrastructure(builder.Configuration);
             builder.Services.AddUsersData(builder.Configuration);
+
+            builder.Services.AddNotificationService(builder.Configuration);
 
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 

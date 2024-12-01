@@ -3,7 +3,9 @@ using MediatR;
 using Modules.Payments.Core.Models;
 using Modules.Payments.Data.Entities;
 using Modules.Payments.Infrastructure.Data;
+using System.Threading;
 using Ticketing.Shared.Core.Exceptions;
+using Ticketing.Shared.Infrastructure.Bus.Models;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
 

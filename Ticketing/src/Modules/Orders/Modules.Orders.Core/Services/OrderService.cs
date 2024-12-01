@@ -7,7 +7,10 @@ using Modules.Orders.Core.Models;
 using Modules.Orders.Core.Models.Dtos;
 using Modules.Orders.Data.Entities;
 using Modules.Orders.Infrastructure.Data;
+using System.Threading;
 using Ticketing.Shared.Core.Exceptions;
+using Ticketing.Shared.Infrastructure.Bus;
+using Ticketing.Shared.Infrastructure.Bus.Models;
 using Ticketing.Shared.Infrastructure.Cache;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging.Requests;
@@ -23,6 +26,7 @@ namespace Modules.Orders.Core.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
         private readonly ILogger<OrderService> _logger;
+        private readonly IBusService _busService;
 
 
         public OrderService(IRepository<Order, OrdersDBContext> repository,
@@ -30,7 +34,8 @@ namespace Modules.Orders.Core.Services
             IMediator mediator,
             IMapper mapper,
             ICacheService cache,
-            ILogger<OrderService> logger)
+            ILogger<OrderService> logger,
+            IBusService busService)
         {
             _repository = repository;
             _orderItemService = orderItemService;
@@ -38,6 +43,7 @@ namespace Modules.Orders.Core.Services
             _mapper = mapper;
             _cache = cache;
             _logger = logger;
+            _busService = busService;
         }
 
         public async Task<ViewOrderDto> GetOrderAsync(Guid userId, Guid orderId, CancellationToken cancellationToken = default)
@@ -161,6 +167,9 @@ namespace Modules.Orders.Core.Services
             order.Status = OrderStatus.InProgress;
             await _repository.SaveChangesAsync(cancellationToken);
 
+            string message = $"Seats for order from {order.Created} were booked. Please pay payment {paymentId}. Amount is {order.Amount}.";
+            await SendEmailAsync(message, "Seats are booked", cancellationToken);
+
             var orderActionResponse = new OrderActionResult
             {
                 OrderId = orderId,
@@ -224,6 +233,30 @@ namespace Modules.Orders.Core.Services
             }
 
             return order;
+        }
+
+        private async Task SendEmailAsync(string message, string operationName, CancellationToken cancellationToken)
+        {
+            var notification = new NotificationDto();
+            notification.Id = Guid.NewGuid();
+            notification.Timestamp = DateTime.UtcNow;
+            notification.Type = NotificationType.Email;
+            notification.OperationName = operationName;
+            notification.Content = new NotificationContentDto
+            {
+                Message = message
+            };
+            notification.Parameters = new List<NotificationParametersDto>()
+            {
+                // TODO: Complete User module and get rid off hardcode user's email & name.
+                new NotificationParametersDto
+                {
+                    RecipientEmail = "christina.golovach@gmail.com",
+                    RecipientName = "Ch G"
+                }
+            };
+
+            await _busService.SendMessageAsync(notification, cancellationToken);
         }
     }
 }

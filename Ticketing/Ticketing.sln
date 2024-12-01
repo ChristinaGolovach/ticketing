@@ -75,6 +75,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketingIntegrationTests",
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2833608D-C48C-4EC1-97F0-408D1108C868}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{29ED093F-7CFC-48E7-B412-613C20F4A4A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Notifications.Service", "src\Modules\Notifications\Modules.Notifications.Service\Modules.Notifications.Service.csproj", "{BF3B7E4A-9A17-4773-9D5F-500943D35417}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -185,6 +189,10 @@ Global
 		{2833608D-C48C-4EC1-97F0-408D1108C868}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2833608D-C48C-4EC1-97F0-408D1108C868}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2833608D-C48C-4EC1-97F0-408D1108C868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3B7E4A-9A17-4773-9D5F-500943D35417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3B7E4A-9A17-4773-9D5F-500943D35417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3B7E4A-9A17-4773-9D5F-500943D35417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3B7E4A-9A17-4773-9D5F-500943D35417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +231,8 @@ Global
 		{791D6D58-3186-4AF2-ABAE-34AD988CC37E} = {38A73ECE-124E-40ED-A807-B755D9C14C19}
 		{323F4847-77D9-4169-A614-0971E2526040} = {66DA3D99-DDC5-4289-AD0B-D8244E80D189}
 		{AF50DE68-F327-42AC-8CDC-BE385FE5B8C9} = {323F4847-77D9-4169-A614-0971E2526040}
+		{29ED093F-7CFC-48E7-B412-613C20F4A4A0} = {5965AB9C-317E-4D07-95B8-B686A0AB8FB5}
+		{BF3B7E4A-9A17-4773-9D5F-500943D35417} = {29ED093F-7CFC-48E7-B412-613C20F4A4A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4F1B6D2-4C3F-4FA9-8C30-303BDEAA8B34}

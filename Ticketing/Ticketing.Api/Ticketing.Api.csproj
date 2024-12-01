@@ -23,6 +23,7 @@
     <ProjectReference Include="..\src\Modules\Events\Modules.Events.Api\Modules.Events.Api.csproj" />
     <ProjectReference Include="..\src\Modules\Events\Modules.Events.Infrastructure\Modules.Events.Infrastructure.csproj" />
     <ProjectReference Include="..\src\Modules\Events\Modules.Events.ModuleApi\Modules.Events.ModuleApi.csproj" />
+    <ProjectReference Include="..\src\Modules\Notifications\Modules.Notifications.Service\Modules.Notifications.Service.csproj" />
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.Api\Modules.Orders.Api.csproj" />
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.Infrastructure\Modules.Orders.Infrastructure.csproj" />
     <ProjectReference Include="..\src\Modules\Orders\Modules.Orders.ModuleApi\Modules.Orders.ModuleApi.csproj" />
