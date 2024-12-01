@@ -140,10 +140,11 @@ namespace Modules.Orders.Core.Services
         private async Task<OrderActionResult> SubmitOrderAsync(Guid orderId, CancellationToken cancellationToken = default)
         {
             var order = await GetOrderWithItemsAsync(orderId);
-
             await _cache.RemoveAsync(order.ActivityId.ToString(), cancellationToken);
-
             var seatIds = order.OrderItems.Select(orderItem => orderItem.ActivitySeatId).ToList();
+
+            _logger.LogDebug($"This is a {LogLevel.Debug} message");
+
             try
             {
                 //await BookSeatsAsync(seatIds, cancellationToken);
