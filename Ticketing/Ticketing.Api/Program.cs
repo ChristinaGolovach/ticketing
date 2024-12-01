@@ -1,8 +1,8 @@
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
-using Serilog;
-using Serilog.Sinks.Grafana.Loki;
-using Serilog.Formatting.Compact;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Trace;
+using OpenTelemetry.Resources;
 
 using Modules.Events.Api;
 using Modules.Events.Infrastructure;
@@ -19,27 +19,39 @@ using Ticketing.Shared.Infrastructure;
 using Ticketing.Shared.Infrastructure.Data;
 using Ticketing.Shared.Messaging;
 
+using Ticketing.Api.Logging;
+
 namespace Ticketing.Api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .CreateLogger();
-
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddSerilog(options =>
-            {
-                options.Enrich.WithProperty("Application", "TicketingApi")
-                   .Enrich.WithProperty("Environment", "Dev")
-                   .WriteTo.Console(new RenderedCompactJsonFormatter())
-                   .WriteTo.GrafanaLoki("http://loki:3100");
-            });
+            builder.Logging.ClearProviders()
+                .AddConsole()
+                .AddDebug()
+                .AddOpenTelemetry(option =>
+                {
+                    option.AddConsoleExporter()
+                    .SetResourceBuilder(
+                        ResourceBuilder.CreateDefault()
+                        .AddService("Ticketing.API"))
+                    .AddProcessor(new LogProcessor())
+                    .IncludeScopes = true;
+                });
+
+            builder.Services.AddOpenTelemetry()
+                .WithTracing(builder =>
+                    builder
+                        .AddSource("Ticketing.Tracing")
+                        .AddAspNetCoreInstrumentation()
+                        .SetResourceBuilder(
+                            ResourceBuilder.CreateDefault()
+                                .AddService("Ticketing.Tracing"))
+                        .AddConsoleExporter()
+                        .AddJaegerExporter());
 
             builder.Services.AddEventsInfrastructure(builder.Configuration);
             builder.Services.AddOrdersInfrastructure(builder.Configuration);
@@ -91,8 +103,6 @@ namespace Ticketing.Api
             app.UseResponseCaching();
 
             app.MapControllers();
-
-            app.UseSerilogRequestLogging();
 
             app.Run();
         }
